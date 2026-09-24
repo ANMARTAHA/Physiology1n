@@ -1,0 +1,3498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Study Smart — Nervous System Physiology</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,560;9..144,680&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f7f6f2;
+  --bg-alt:#ffffff;
+  --surface:#ffffff;
+  --surface-2:#f0eee7;
+  --border:#dedad0;
+  --text:#22242c;
+  --text-dim:#5a5d6b;
+  --text-faint:#8a8d99;
+  --amber:#c8860a;
+  --coral:#c2455e;
+  --teal:#158a7e;
+  --violet:#6e5ce0;
+  --radius:14px;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  background:
+    radial-gradient(1200px 600px at 15% -10%, rgba(110,92,224,0.07), transparent 60%),
+    radial-gradient(1000px 500px at 100% 0%, rgba(21,138,126,0.06), transparent 55%),
+    var(--bg);
+  color:var(--text);
+  font-family:'Inter',system-ui,sans-serif;
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3{font-family:'Fraunces',serif;font-weight:680;letter-spacing:-0.01em;margin:0;}
+.mono{font-family:'IBM Plex Mono',monospace;}
+a{color:inherit;}
+::selection{background:rgba(200,134,10,0.25);}
+
+/* ---------- Header ---------- */
+.site-header{
+  padding:34px 24px 0;
+  max-width:1180px;
+  margin:0 auto;
+  text-align:center;
+}
+.eyebrow{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11.5px;
+  letter-spacing:0.22em;
+  text-transform:uppercase;
+  color:var(--teal);
+  margin-bottom:10px;
+}
+.site-header h1{
+  font-size:clamp(2.1rem,5.5vw,3.4rem);
+  color:var(--text);
+}
+.site-header h1 span{color:var(--amber);}
+.site-header p.sub{
+  color:var(--text-dim);
+  max-width:560px;
+  margin:12px auto 0;
+  font-size:15px;
+}
+
+/* action potential trace */
+.trace-wrap{max-width:760px;margin:26px auto 6px;padding:0 12px;}
+.trace-wrap svg{width:100%;height:auto;display:block;}
+.trace-path{
+  fill:none;
+  stroke:var(--amber);
+  stroke-width:2.4;
+  stroke-linecap:round;
+  stroke-dasharray:900;
+  stroke-dashoffset:900;
+  animation:draw 3.2s ease-in-out infinite;
+  filter:drop-shadow(0 0 6px rgba(242,184,75,0.55));
+}
+.trace-baseline{stroke:var(--border);stroke-width:1;stroke-dasharray:4 4;}
+@keyframes draw{
+  0%{stroke-dashoffset:900;}
+  55%{stroke-dashoffset:0;}
+  85%{stroke-dashoffset:0;opacity:1;}
+  100%{stroke-dashoffset:-900;opacity:0.4;}
+}
+@media (prefers-reduced-motion: reduce){
+  .trace-path{animation:none;stroke-dashoffset:0;}
+}
+
+/* ---------- Nav ---------- */
+nav.tabs{
+  position:sticky;top:0;z-index:50;
+  background:rgba(247,246,242,0.9);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--border);
+  margin-top:28px;
+}
+.tabs-inner{
+  max-width:1180px;margin:0 auto;
+  display:flex;gap:4px;
+  overflow-x:auto;
+  padding:8px 16px;
+  scrollbar-width:none;
+}
+.tabs-inner::-webkit-scrollbar{display:none;}
+.tab-btn{
+  flex:0 0 auto;
+  display:flex;align-items:center;gap:8px;
+  background:none;border:none;cursor:pointer;
+  color:var(--text-dim);
+  font-family:'Inter',sans-serif;
+  font-size:13.5px;font-weight:600;
+  padding:10px 14px;border-radius:10px;
+  transition:color .2s ease, background .2s ease;
+  white-space:nowrap;
+}
+.tab-btn svg{width:16px;height:16px;flex:0 0 auto;}
+.tab-btn:hover{color:var(--text);background:rgba(0,0,0,0.05);}
+.tab-btn.active{color:var(--bg);background:var(--amber);}
+.tab-btn.active svg{stroke:var(--bg);}
+
+/* ---------- Main ---------- */
+main{max-width:1180px;margin:0 auto;padding:34px 20px 10px;}
+.panel{display:none;animation:fadein .35s ease;}
+.panel.active{display:block;}
+@keyframes fadein{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+
+.section-head{margin-bottom:22px;}
+.section-head h2{font-size:clamp(1.5rem,3.4vw,2rem);}
+.section-head p{color:var(--text-dim);font-size:14.5px;margin-top:6px;max-width:640px;}
+
+/* card grid (overview) */
+.card-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:16px;
+}
+.rule-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:20px 20px 18px;
+  border-top:3px solid var(--accent,var(--amber));
+}
+.rule-card h3{font-size:16px;color:var(--text);margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+.rule-card h3 .dot{width:8px;height:8px;border-radius:50%;background:var(--accent,var(--amber));flex:0 0 auto;}
+.rule-card ul{margin:0;padding-left:18px;color:var(--text-dim);font-size:13.6px;}
+.rule-card ul li{margin-bottom:6px;}
+.rule-card ul ul{margin-top:6px;}
+.rule-card b{color:var(--text);font-weight:600;}
+.rule-card .num{color:var(--teal);}
+
+.data-card{
+  background:var(--surface-2);
+  border:1px dashed var(--border);
+}
+.data-card .stat-row{display:flex;justify-content:space-between;font-size:13.5px;padding:6px 0;border-bottom:1px solid var(--border);color:var(--text-dim);}
+.data-card .stat-row:last-child{border-bottom:none;}
+.data-card .stat-row span.v{color:var(--amber);font-family:'IBM Plex Mono',monospace;font-weight:600;}
+
+/* ---------- Diagrams ---------- */
+.diagram-grid{display:grid;grid-template-columns:1fr;gap:22px;}
+.diagram-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:22px;
+}
+.diagram-card h3{font-size:17px;margin-bottom:4px;}
+.diagram-card .hint{color:var(--text-faint);font-size:12.5px;margin-bottom:14px;}
+.diagram-stage{
+  background:var(--bg-alt);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:14px;
+}
+.info-line{
+  margin-top:12px;
+  background:var(--surface-2);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:12px 14px;
+  font-size:13.6px;
+  color:var(--text-dim);
+  min-height:20px;
+}
+.info-line b{color:var(--text);}
+
+/* neuron svg */
+#neuronSvg{width:100%;height:auto;}
+.neuron-part{fill:none;stroke:var(--violet);stroke-width:2;}
+.hotspot{cursor:pointer;fill:var(--amber);stroke:var(--bg-alt);stroke-width:2;transition:r .15s ease, fill .15s ease;}
+.hotspot:hover, .hotspot.active{fill:var(--coral);r:9;}
+.hotspot-label{font-family:'IBM Plex Mono',monospace;font-size:9px;fill:var(--text-dim);pointer-events:none;}
+
+/* hierarchy tree */
+.tree{display:flex;flex-direction:column;gap:6px;}
+.tree-row{
+  display:flex;align-items:center;gap:10px;
+  padding:9px 12px;border-radius:8px;
+  cursor:pointer;border:1px solid transparent;
+  font-size:13.6px;
+  transition:background .15s ease, border-color .15s ease;
+}
+.tree-row:hover{background:rgba(0,0,0,0.04);}
+.tree-row.active{background:var(--surface-2);border-color:var(--border);}
+.tree-row .bar{width:4px;height:16px;border-radius:2px;background:var(--accent,var(--teal));flex:0 0 auto;}
+.tree-row b{font-weight:600;color:var(--text);}
+.lvl0{margin-left:0;}
+.lvl1{margin-left:22px;}
+.lvl2{margin-left:44px;}
+.lvl3{margin-left:66px;}
+.lvl4{margin-left:88px;}
+
+/* glial cards */
+.glia-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;}
+.glia-card{
+  perspective:1000px;height:150px;cursor:pointer;
+}
+.glia-inner{
+  position:relative;width:100%;height:100%;
+  transform-style:preserve-3d;transition:transform .5s ease;
+}
+.glia-card.flipped .glia-inner{transform:rotateY(180deg);}
+.glia-face{
+  position:absolute;inset:0;
+  border-radius:10px;padding:14px;
+  display:flex;flex-direction:column;justify-content:space-between;
+  backface-visibility:hidden;
+  border:1px solid var(--border);
+}
+.glia-front{background:var(--surface-2);}
+.glia-back{background:var(--surface-2);transform:rotateY(180deg);font-size:12px;color:var(--text-dim);overflow:auto;}
+.glia-front .name{font-family:'Fraunces',serif;font-size:16px;color:var(--text);}
+.glia-badge{
+  align-self:flex-start;font-family:'IBM Plex Mono',monospace;font-size:10px;
+  padding:3px 8px;border-radius:20px;letter-spacing:0.06em;
+}
+.badge-cns{background:rgba(79,209,197,0.15);color:var(--teal);}
+.badge-pns{background:rgba(155,138,251,0.15);color:var(--violet);}
+.glia-flip-hint{font-size:10.5px;color:var(--text-faint);}
+
+/* ion map */
+.ion-stage{display:flex;align-items:stretch;gap:0;min-height:200px;}
+.ion-zone{flex:1;padding:14px;display:flex;flex-wrap:wrap;align-content:flex-start;gap:8px;}
+.ion-zone-label{width:100%;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--text-faint);margin-bottom:6px;letter-spacing:.08em;text-transform:uppercase;}
+.membrane-bar{width:14px;background:repeating-linear-gradient(180deg,var(--surface-2) 0 6px, var(--border) 6px 8px);border-left:1px solid var(--border);border-right:1px solid var(--border);}
+.ion-badge{
+  font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;
+  padding:6px 10px;border-radius:20px;cursor:pointer;border:1px solid transparent;
+  transition:transform .15s ease;
+}
+.ion-badge:hover{transform:translateY(-2px);}
+.ion-na{background:rgba(236,111,130,0.18);color:var(--coral);}
+.ion-cl{background:rgba(155,138,251,0.18);color:var(--violet);}
+.ion-k{background:rgba(79,209,197,0.18);color:var(--teal);}
+.ion-pr{background:rgba(242,184,75,0.18);color:var(--amber);}
+
+/* pump */
+.pump-stage{position:relative;height:190px;border-radius:10px;overflow:hidden;background:linear-gradient(180deg, rgba(236,111,130,0.05) 0%, rgba(236,111,130,0.05) 48%, var(--border) 48%, var(--border) 52%, rgba(79,209,197,0.05) 52%, rgba(79,209,197,0.05) 100%);}
+.pump-zone-label{position:absolute;left:12px;font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--text-faint);letter-spacing:.08em;text-transform:uppercase;}
+.pump-out-label{top:8px;}
+.pump-in-label{bottom:8px;}
+.pump-core{
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  width:46px;height:46px;border-radius:50%;
+  background:var(--surface-2);border:2px solid var(--amber);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--amber);text-align:center;
+}
+.ion-dot{
+  position:absolute;width:16px;height:16px;border-radius:50%;
+  font-family:'IBM Plex Mono',monospace;font-size:8.5px;
+  display:flex;align-items:center;justify-content:center;color:#0d0f14;font-weight:700;
+  transition:top 1.1s cubic-bezier(.65,0,.35,1), left 1.1s cubic-bezier(.65,0,.35,1), opacity .3s ease;
+}
+.dot-na{background:var(--coral);}
+.dot-k{background:var(--teal);}
+
+/* gated channels */
+.gate-tabs{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;}
+.gate-tab{
+  background:var(--surface-2);border:1px solid var(--border);color:var(--text-dim);
+  font-size:12.5px;font-weight:600;padding:7px 13px;border-radius:20px;cursor:pointer;
+}
+.gate-tab.active{background:var(--violet);color:#161726;border-color:var(--violet);}
+.gate-visual{display:flex;align-items:center;justify-content:center;padding:20px 0;}
+.gate-flap{width:36px;height:60px;background:var(--surface-2);border:2px solid var(--violet);border-radius:6px;transition:transform .5s ease;}
+.gate-flap.left{transform-origin:right center;border-right:none;border-radius:6px 0 0 6px;}
+.gate-flap.right{transform-origin:left center;border-left:none;border-radius:0 6px 6px 0;}
+.gate-visual.open .gate-flap.left{transform:rotate(-24deg) translateX(-4px);}
+.gate-visual.open .gate-flap.right{transform:rotate(24deg) translateX(4px);}
+.gate-btn{
+  background:var(--amber);color:#221a09;border:none;font-weight:700;font-size:13px;
+  padding:9px 18px;border-radius:20px;cursor:pointer;margin-top:6px;
+}
+.gate-btn:hover{filter:brightness(1.08);}
+
+/* graded potential graph */
+.graph-controls{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;}
+.graph-btn{
+  background:var(--surface-2);border:1px solid var(--border);color:var(--text-dim);
+  font-size:12.5px;font-weight:600;padding:8px 14px;border-radius:8px;cursor:pointer;
+}
+.graph-btn.active{background:var(--coral);color:#210e13;border-color:var(--coral);}
+#gradedPath{fill:none;stroke:var(--coral);stroke-width:2.6;transition:d .5s ease;}
+.graph-peak-label{font-family:'IBM Plex Mono',monospace;fill:var(--text);font-size:11px;}
+
+/* generic small buttons */
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;}
+
+/* ---------- Mini map ---------- */
+.mm-wrap{display:grid;grid-template-columns:1.3fr 1fr;gap:20px;align-items:start;}
+@media (max-width:760px){.mm-wrap{grid-template-columns:1fr;}}
+.mm-stage{
+  position:relative;width:100%;aspect-ratio:1/1;max-width:520px;margin:0 auto;
+}
+.mm-svg-lines{position:absolute;inset:0;width:100%;height:100%;}
+.mm-svg-lines line{stroke:var(--border);stroke-width:1.4;}
+.mm-node{
+  position:absolute;transform:translate(-50%,-50%);
+  cursor:pointer;text-align:center;
+  display:flex;flex-direction:column;align-items:center;gap:6px;
+  width:110px;
+}
+.mm-node .circle{
+  width:64px;height:64px;border-radius:50%;
+  background:var(--surface-2);border:2px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--text-dim);
+  transition:border-color .2s ease, background .2s ease, transform .2s ease;
+}
+.mm-node span.lbl{font-size:11.5px;color:var(--text-dim);font-weight:600;line-height:1.25;}
+.mm-node.center .circle{width:82px;height:82px;background:var(--amber);border-color:var(--amber);color:#221a09;font-weight:700;font-size:11px;box-shadow:0 0 22px rgba(242,184,75,0.35);}
+.mm-node.center span.lbl{color:var(--text);}
+.mm-node:hover .circle, .mm-node.active .circle{border-color:var(--teal);transform:scale(1.06);}
+.mm-node.active .circle{background:var(--teal);color:#0c211f;}
+.mm-panel{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+  padding:20px;min-height:220px;
+}
+.mm-panel h4{font-size:15.5px;margin-bottom:10px;color:var(--text);font-family:'Fraunces',serif;}
+.mm-panel ul{padding-left:18px;margin:0;color:var(--text-dim);font-size:13.6px;}
+.mm-panel ul li{margin-bottom:8px;}
+.mm-panel .placeholder{color:var(--text-faint);font-size:13.5px;}
+
+/* ---------- Flashcards ---------- */
+.fc-wrap{max-width:520px;margin:0 auto;}
+.fc-progress{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;font-size:12.5px;color:var(--text-faint);font-family:'IBM Plex Mono',monospace;}
+.fc-track{height:4px;border-radius:2px;background:var(--border);overflow:hidden;margin-bottom:18px;}
+.fc-track-fill{height:100%;background:var(--teal);width:0%;transition:width .3s ease;}
+.fc-card{
+  perspective:1400px;height:260px;cursor:pointer;
+}
+.fc-inner{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .55s cubic-bezier(.4,.2,.2,1);}
+.fc-card.flipped .fc-inner{transform:rotateY(180deg);}
+.fc-face{
+  position:absolute;inset:0;border-radius:16px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
+  padding:26px;backface-visibility:hidden;border:1px solid var(--border);
+}
+.fc-front{background:var(--surface);}
+.fc-back{background:var(--surface-2);transform:rotateY(180deg);}
+.fc-tag{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent,var(--teal));margin-bottom:14px;}
+.fc-front .term{font-family:'Fraunces',serif;font-size:24px;color:var(--text);}
+.fc-back .def{font-size:14.5px;color:var(--text-dim);line-height:1.55;}
+.fc-hint{margin-top:14px;font-size:11.5px;color:var(--text-faint);}
+.fc-controls{display:flex;justify-content:center;gap:10px;margin-top:20px;}
+.fc-btn{
+  background:var(--surface-2);border:1px solid var(--border);color:var(--text);
+  font-size:13px;font-weight:600;padding:10px 16px;border-radius:9px;cursor:pointer;
+}
+.fc-btn:hover{border-color:var(--teal);}
+.fc-btn.primary{background:var(--teal);color:#0c211f;border-color:var(--teal);}
+
+/* ---------- Quiz ---------- */
+.quiz-top{
+  display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap;
+}
+.quiz-score{font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--text-dim);}
+.quiz-score b{color:var(--amber);}
+.quiz-track{height:4px;border-radius:2px;background:var(--border);overflow:hidden;margin-bottom:20px;}
+.quiz-track-fill{height:100%;background:var(--coral);width:0%;transition:width .3s ease;}
+.q-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;max-width:640px;margin:0 auto;
+}
+.q-num{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--text-faint);margin-bottom:8px;}
+.q-text{font-size:16.5px;font-weight:600;margin-bottom:18px;color:var(--text);}
+.q-options{display:flex;flex-direction:column;gap:9px;}
+.q-opt{
+  text-align:left;background:var(--surface-2);border:1px solid var(--border);color:var(--text);
+  padding:11px 14px;border-radius:9px;cursor:pointer;font-size:14px;
+  display:flex;align-items:center;gap:10px;
+}
+.q-opt:hover{border-color:var(--violet);}
+.q-opt .k{font-family:'IBM Plex Mono',monospace;color:var(--text-faint);font-size:12px;}
+.q-opt.correct{background:rgba(79,209,197,0.15);border-color:var(--teal);}
+.q-opt.incorrect{background:rgba(236,111,130,0.15);border-color:var(--coral);}
+.q-opt[disabled]{cursor:default;}
+.q-feedback{margin-top:14px;font-size:13px;color:var(--text-dim);min-height:18px;}
+.q-nav{display:flex;justify-content:space-between;margin-top:20px;}
+.q-btn{background:var(--surface-2);border:1px solid var(--border);color:var(--text);font-size:13px;font-weight:600;padding:10px 16px;border-radius:9px;cursor:pointer;}
+.q-btn:hover{border-color:var(--amber);}
+.q-btn:disabled{opacity:.4;cursor:default;}
+.quiz-done{text-align:center;padding:40px 20px;}
+.quiz-done h3{font-size:26px;margin-bottom:8px;}
+.quiz-done p{color:var(--text-dim);margin-bottom:20px;}
+
+/* ---------- Footer ---------- */
+footer{
+  margin-top:60px;padding:26px 20px 40px;text-align:center;
+  border-top:1px solid var(--border);
+  color:var(--text-faint);font-size:12px;
+}
+footer .brand{color:var(--text-dim);font-family:'IBM Plex Mono',monospace;letter-spacing:.04em;}
+footer .footer-contact{margin-top:6px;color:var(--text-faint);}
+.credit-bar{
+  background:var(--surface-2);
+  border-bottom:1px solid var(--border);
+  color:var(--text-faint);
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11px;
+  text-align:center;
+  padding:7px 10px;
+  letter-spacing:.02em;
+}
+
+@media (max-width:600px){
+  .ion-stage{flex-direction:column;}
+  .membrane-bar{width:100%;height:10px;}
+}
+</style>
+</head>
+<body>
+
+<div class="credit-bar">© <span class="yearNow2"></span> Anmar Taha — Study Smart · جميع الحقوق محفوظة · Telegram: @AnmarTaha · Instagram: a.za18</div>
+
+<header class="site-header">
+  <div class="eyebrow">Nervous System Physiology</div>
+  <h1>Study <span>Smart</span></h1>
+  <p class="sub">A tight, exam-ready pass through neurons, glia, the CNS/PNS split, and the resting &amp; graded membrane potential — built to review, not to re-read a lecture.</p>
+  <div class="trace-wrap">
+    <svg viewBox="0 0 600 90" preserveAspectRatio="none">
+      <line class="trace-baseline" x1="0" y1="60" x2="600" y2="60"/>
+      <path class="trace-path" d="M0,60 L180,60 L205,60 C215,60 218,10 228,10 C236,10 238,80 248,80 C256,80 260,60 280,60 L600,60"/>
+    </svg>
+  </div>
+</header>
+
+<nav class="tabs">
+  <div class="tabs-inner" id="tabsInner">
+    <button class="tab-btn active" data-panel="overview">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
+      Overview
+    </button>
+    <button class="tab-btn" data-panel="diagrams">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="6" r="2.4"/><circle cx="18" cy="6" r="2.4"/><circle cx="12" cy="18" r="2.4"/><path d="M8 7l7-0M7.5 8.3L11 16M16.5 8.3L13 16"/></svg>
+      Diagrams
+    </button>
+    <button class="tab-btn" data-panel="minimap">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="2.6"/><circle cx="12" cy="4" r="1.8"/><circle cx="19" cy="9" r="1.8"/><circle cx="19" cy="17" r="1.8"/><circle cx="5" cy="17" r="1.8"/><path d="M12 6.2V9.6M17.4 10.2L14 12M17.4 15.6L14 13.6M6.6 15.6L10 13.6"/></svg>
+      Mini Map
+    </button>
+    <button class="tab-btn" data-panel="flashcards">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="6" width="14" height="10" rx="2"/><path d="M7.5 3.5h13a1 1 0 0 1 1 1V13"/></svg>
+      Flash Cards
+    </button>
+    <button class="tab-btn" data-panel="quiz">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 4h14v16l-4-3-3 3-3-3-4 3z"/><path d="M8.5 9h7M8.5 12.5h4.5"/></svg>
+      Quiz Bank
+    </button>
+    <button class="tab-btn" data-panel="topics">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 5h16M4 5v14M4 5l6 6-6 6M11 8h9M11 13h9M11 18h9"/></svg>
+      Topics
+    </button>
+    <button class="tab-btn" data-panel="highyield">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l2.6 6.6L21 10l-5 4.4L17.4 21 12 17.3 6.6 21 8 14.4 3 10l6.4-1.4z"/></svg>
+      High-Yield
+    </button>
+  </div>
+</nav>
+
+<main>
+
+<!-- ===================== OVERVIEW ===================== -->
+<section class="panel active" id="panel-overview">
+  <div class="section-head">
+    <h2>Core rules, not a lecture</h2>
+    <p>Everything worth remembering, compressed. Read this before diagrams, cards, or the quiz.</p>
+  </div>
+  <div class="card-grid">
+
+    <div class="rule-card" style="--accent:var(--amber)">
+      <h3><span class="dot"></span>Nervous System — basics</h3>
+      <ul>
+        <li>Includes <b>all neural tissue</b> in the body.</li>
+        <li>Functional unit = the <b>neuron</b>.</li>
+        <li>Neurons are supported by <b>neuroglia (glial cells)</b>, which separate &amp; protect them.</li>
+        <li>Organs of the NS: <b>brain, spinal cord, receptors, nerves</b>.</li>
+      </ul>
+    </div>
+
+    <div class="rule-card" style="--accent:var(--teal)">
+      <h3><span class="dot"></span>CNS vs PNS</h3>
+      <ul>
+        <li><b>CNS</b> = brain + spinal cord → integrates, processes &amp; coordinates sensory data and motor commands; seat of intelligence, memory, learning, emotion.</li>
+        <li><b>PNS</b> = all neural tissue outside the CNS → delivers sensory info to the CNS, carries motor commands to the periphery.</li>
+      </ul>
+    </div>
+
+    <div class="rule-card" style="--accent:var(--violet)">
+      <h3><span class="dot"></span>PNS divisions</h3>
+      <ul>
+        <li><b>Afferent</b> → sensory → receptors → CNS.</li>
+        <li><b>Efferent</b> → motor → CNS → effectors.
+          <ul>
+            <li><b>Somatic (SNS)</b> → skeletal muscle.</li>
+            <li><b>Autonomic (ANS)</b> → smooth/cardiac muscle &amp; glands.
+              <ul>
+                <li>Sympathetic → fight or flight.</li>
+                <li>Parasympathetic → rest &amp; housekeeping.</li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+    <div class="rule-card" style="--accent:var(--coral)">
+      <h3><span class="dot"></span>Resting membrane potential</h3>
+      <ul>
+        <li><b>ECF</b> is high in <b>Na⁺, Cl⁻</b>.</li>
+        <li><b>ICF</b> is high in <b>K⁺</b> and negatively charged proteins.</li>
+        <li>Ions cross the membrane only through <b>channels</b> — never freely through the lipid bilayer.</li>
+        <li>Resting potential ≈ <b class="num">-70 mV</b>.</li>
+      </ul>
+    </div>
+
+    <div class="rule-card" style="--accent:var(--amber)">
+      <h3><span class="dot"></span>Na⁺/K⁺ ATPase pump</h3>
+      <ul>
+        <li>Ejects <b>3 Na⁺</b> out for every <b>2 K⁺</b> in.</li>
+        <li>Active transport — requires <b>ATP</b>.</li>
+        <li>Compensates for slow Na⁺ leak in / K⁺ leak out.</li>
+        <li>Net effect: contributes to the <b>negativity</b> of the transmembrane potential.</li>
+      </ul>
+    </div>
+
+    <div class="rule-card" style="--accent:var(--teal)">
+      <h3><span class="dot"></span>Ion channel types</h3>
+      <ul>
+        <li><b>Leak (passive)</b> — always open; permeability shifts with local conditions.</li>
+        <li><b>Chemically gated</b> — open on ligand binding (e.g., ACh at the NMJ).</li>
+        <li><b>Voltage gated</b> — open/close with membrane potential change; key to the action potential.</li>
+        <li><b>Mechanically gated</b> — open with membrane distortion (touch, pressure, vibration).</li>
+      </ul>
+    </div>
+
+    <div class="rule-card" style="--accent:var(--violet)">
+      <h3><span class="dot"></span>Graded (local) potentials</h3>
+      <ul>
+        <li>Localized change in Vm that <b>cannot spread far</b> from the stimulus site.</li>
+        <li><b>Depolarization</b> → shift toward 0 mV or above (Na⁺ enters).</li>
+        <li><b>Hyperpolarization</b> → shift more negative, e.g. -80 mV (K⁺ leaves).</li>
+        <li>Spreads via <b>local current</b>; effect decays with distance.</li>
+        <li>Stronger stimulus → more channels open → larger, wider effect.</li>
+      </ul>
+    </div>
+
+    <div class="rule-card data-card" style="--accent:var(--coral)">
+      <h3><span class="dot"></span>Numbers worth memorizing</h3>
+      <div class="stat-row"><span>Resting membrane potential</span><span class="v">-70 mV</span></div>
+      <div class="stat-row"><span>Hyperpolarized shift (example)</span><span class="v">-80 mV</span></div>
+      <div class="stat-row"><span>Na⁺/K⁺ pump ratio</span><span class="v">3 out : 2 in</span></div>
+      <div class="stat-row"><span>Core glial cell types</span><span class="v">6</span></div>
+      <div class="stat-row"><span>Gated channel classes</span><span class="v">3</span></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===================== DIAGRAMS ===================== -->
+<section class="panel" id="panel-diagrams">
+  <div class="section-head">
+    <h2>Click into every structure</h2>
+    <p>Seven interactive builds — tap the elements to reveal what each one actually does.</p>
+  </div>
+
+  <div class="diagram-grid">
+
+    <!-- Neuron -->
+    <div class="diagram-card">
+      <h3>1 · Neuron anatomy</h3>
+      <div class="hint">Click a highlighted point on the neuron.</div>
+      <div class="diagram-stage">
+        <svg id="neuronSvg" viewBox="0 0 520 200">
+          <!-- dendrites -->
+          <path class="neuron-part" d="M55,95 L30,70 M55,95 L25,90 M55,95 L32,110 M60,80 L38,55 M62,120 L40,140"/>
+          <!-- soma -->
+          <ellipse class="neuron-part" cx="90" cy="100" rx="42" ry="38"/>
+          <circle cx="80" cy="100" r="13" fill="none" stroke="var(--coral)" stroke-width="2"/>
+          <!-- axon with myelin segments -->
+          <line class="neuron-part" x1="132" y1="100" x2="145" y2="100"/>
+          <rect x="150" y="90" width="38" height="20" rx="10" fill="var(--surface-2)" stroke="var(--teal)" stroke-width="2"/>
+          <line class="neuron-part" x1="188" y1="100" x2="200" y2="100"/>
+          <rect x="204" y="90" width="38" height="20" rx="10" fill="var(--surface-2)" stroke="var(--teal)" stroke-width="2"/>
+          <line class="neuron-part" x1="242" y1="100" x2="254" y2="100"/>
+          <rect x="258" y="90" width="38" height="20" rx="10" fill="var(--surface-2)" stroke="var(--teal)" stroke-width="2"/>
+          <line class="neuron-part" x1="296" y1="100" x2="308" y2="100"/>
+          <rect x="312" y="90" width="38" height="20" rx="10" fill="var(--surface-2)" stroke="var(--teal)" stroke-width="2"/>
+          <line class="neuron-part" x1="350" y1="100" x2="400" y2="100"/>
+          <!-- terminal branches -->
+          <path class="neuron-part" d="M400,100 L440,80 M400,100 L445,100 M400,100 L440,120 M420,88 L455,72 M420,112 L455,128"/>
+
+          <!-- hotspots -->
+          <circle class="hotspot" data-key="dendrite" cx="34" cy="70" r="6.5"/>
+          <text class="hotspot-label" x="6" y="52">Dendrite</text>
+
+          <circle class="hotspot" data-key="nucleus" cx="80" cy="100" r="6.5"/>
+
+          <circle class="hotspot" data-key="cellbody" cx="98" cy="132" r="6.5"/>
+          <text class="hotspot-label" x="75" y="152">Cell body</text>
+
+          <circle class="hotspot" data-key="axonhillock" cx="138" cy="100" r="6.5"/>
+
+          <circle class="hotspot" data-key="myelin" cx="223" cy="100" r="6.5"/>
+          <text class="hotspot-label" x="196" y="76">Myelin sheath</text>
+
+          <circle class="hotspot" data-key="node" cx="197" cy="100" r="6.5"/>
+
+          <circle class="hotspot" data-key="terminal" cx="447" cy="100" r="6.5"/>
+          <text class="hotspot-label" x="420" y="145">Axon terminal</text>
+        </svg>
+      </div>
+      <div class="info-line" id="neuronInfo">Tap any amber dot on the neuron to see what that part does.</div>
+    </div>
+
+    <!-- Hierarchy -->
+    <div class="diagram-card">
+      <h3>2 · CNS / PNS organization</h3>
+      <div class="hint">Click any row to expand its role.</div>
+      <div class="diagram-stage">
+        <div class="tree" id="hierarchyTree"></div>
+      </div>
+      <div class="info-line" id="hierarchyInfo">Select a division to read its function.</div>
+    </div>
+
+    <!-- Glia -->
+    <div class="diagram-card">
+      <h3>3 · Glial cell explorer</h3>
+      <div class="hint">Click a card to flip it over.</div>
+      <div class="glia-grid" id="gliaGrid"></div>
+    </div>
+
+    <!-- Ion map -->
+    <div class="diagram-card">
+      <h3>4 · ECF vs ICF ion map</h3>
+      <div class="hint">Click any ion badge for its role.</div>
+      <div class="diagram-stage">
+        <div class="ion-stage">
+          <div class="ion-zone" id="ecfZone"><div class="ion-zone-label">Extracellular fluid</div></div>
+          <div class="membrane-bar"></div>
+          <div class="ion-zone" id="icfZone"><div class="ion-zone-label">Intracellular fluid</div></div>
+        </div>
+      </div>
+      <div class="info-line" id="ionInfo">Click Na⁺, Cl⁻, K⁺ or Pr⁻ to see why each ion sits where it does.</div>
+    </div>
+
+    <!-- Pump -->
+    <div class="diagram-card">
+      <h3>5 · Sodium–potassium pump</h3>
+      <div class="hint">Run one full pump cycle.</div>
+      <div class="diagram-stage">
+        <div class="pump-stage" id="pumpStage">
+          <div class="pump-zone-label pump-out-label">Outside cell</div>
+          <div class="pump-zone-label pump-in-label">Inside cell</div>
+          <div class="pump-core">Na⁺/K⁺<br>ATPase</div>
+        </div>
+      </div>
+      <div class="btn-row"><button class="gate-btn" id="pumpBtn">Run pump cycle</button></div>
+      <div class="info-line" id="pumpInfo">Each cycle: 3 Na⁺ leave the cell, 2 K⁺ enter — powered by ATP.</div>
+    </div>
+
+    <!-- Gated channels -->
+    <div class="diagram-card">
+      <h3>6 · Gated channel types</h3>
+      <div class="hint">Choose a channel class, then activate it.</div>
+      <div class="gate-tabs" id="gateTabs">
+        <button class="gate-tab active" data-key="chemical">Chemically gated</button>
+        <button class="gate-tab" data-key="voltage">Voltage gated</button>
+        <button class="gate-tab" data-key="mechanical">Mechanically gated</button>
+      </div>
+      <div class="diagram-stage">
+        <div class="gate-visual" id="gateVisual">
+          <div class="gate-flap left"></div>
+          <div class="gate-flap right"></div>
+        </div>
+      </div>
+      <div class="btn-row"><button class="gate-btn" id="gateBtn">Activate channel</button></div>
+      <div class="info-line" id="gateInfo"></div>
+    </div>
+
+    <!-- Graded potential graph -->
+    <div class="diagram-card">
+      <h3>7 · Graded potential curve</h3>
+      <div class="hint">Compare stimulus types against the -70 mV baseline.</div>
+      <div class="graph-controls">
+        <button class="graph-btn active" data-key="weak">Weak depolarizing</button>
+        <button class="graph-btn" data-key="strong">Strong depolarizing</button>
+        <button class="graph-btn" data-key="hyper">Hyperpolarizing</button>
+      </div>
+      <div class="diagram-stage">
+        <svg viewBox="0 0 400 160" style="width:100%;height:auto;">
+          <line x1="20" y1="100" x2="380" y2="100" stroke="var(--border)" stroke-width="1" stroke-dasharray="4 4"/>
+          <text class="graph-peak-label" x="24" y="112">-70 mV baseline</text>
+          <path id="gradedPath" d="M20,100 C100,100 150,100 180,100 C190,100 210,100 220,100 C250,100 300,100 380,100"/>
+          <text class="graph-peak-label" id="gradedPeakLabel" x="330" y="30"></text>
+        </svg>
+      </div>
+      <div class="info-line" id="gradedInfo">Amplitude decreases with distance from the stimulus site — the effect spreads passively via local current.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===================== MINI MAP ===================== -->
+<section class="panel" id="panel-minimap">
+  <div class="section-head">
+    <h2>The whole topic, one glance</h2>
+    <p>Click a node to open its branch on the right.</p>
+  </div>
+  <div class="mm-wrap">
+    <div class="mm-stage" id="mmStage">
+      <svg class="mm-svg-lines" viewBox="0 0 100 100" preserveAspectRatio="none">
+        <line x1="50" y1="50" x2="50" y2="15"/>
+        <line x1="50" y1="50" x2="85" y2="35"/>
+        <line x1="50" y1="50" x2="80" y2="80"/>
+        <line x1="50" y1="50" x2="20" y2="80"/>
+        <line x1="50" y1="50" x2="15" y2="35"/>
+      </svg>
+      <div class="mm-node center" data-key="center" style="left:50%;top:50%;">
+        <div class="circle">NS PHYSIO</div>
+      </div>
+      <div class="mm-node" data-key="cells" style="left:50%;top:15%;">
+        <div class="circle">🧠</div><span class="lbl">Cells &amp; Anatomy</span>
+      </div>
+      <div class="mm-node" data-key="cnspns" style="left:85%;top:35%;">
+        <div class="circle">🧩</div><span class="lbl">CNS &amp; PNS</span>
+      </div>
+      <div class="mm-node" data-key="ans" style="left:80%;top:80%;">
+        <div class="circle">⚡</div><span class="lbl">ANS Divisions</span>
+      </div>
+      <div class="mm-node" data-key="membrane" style="left:20%;top:80%;">
+        <div class="circle">🧪</div><span class="lbl">Membrane Potential</span>
+      </div>
+      <div class="mm-node" data-key="channels" style="left:15%;top:35%;">
+        <div class="circle">🚪</div><span class="lbl">Channels &amp; Graded Potentials</span>
+      </div>
+    </div>
+    <div class="mm-panel" id="mmPanel">
+      <h4>Nervous System Physiology</h4>
+      <p class="placeholder">Click any surrounding node to open that branch.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FLASHCARDS ===================== -->
+<section class="panel" id="panel-flashcards">
+  <div class="section-head">
+    <h2>Flash cards</h2>
+    <p>150 terms across 3 difficulty levels — pick a level below. Tap a card to flip it.</p>
+  </div>
+  <div class="gate-tabs" id="fcLevelTabs">
+    <button class="gate-tab active" data-level="easy">Level 1 · Easy (60)</button>
+    <button class="gate-tab" data-level="medium">Level 2 · Medium (50)</button>
+    <button class="gate-tab" data-level="hard">Level 3 · Hard (40)</button>
+  </div>
+  <div class="fc-wrap">
+    <div class="fc-progress"><span id="fcCount">1 / 60</span><span id="fcCatLabel"></span></div>
+    <div class="fc-track"><div class="fc-track-fill" id="fcTrackFill"></div></div>
+    <div class="fc-card" id="fcCard">
+      <div class="fc-inner">
+        <div class="fc-face fc-front">
+          <div class="fc-tag" id="fcTagFront"></div>
+          <div class="term" id="fcTerm"></div>
+          <div class="fc-hint">Tap to reveal definition</div>
+        </div>
+        <div class="fc-face fc-back">
+          <div class="fc-tag" id="fcTagBack"></div>
+          <div class="def" id="fcDef"></div>
+        </div>
+      </div>
+    </div>
+    <div class="fc-controls">
+      <button class="fc-btn" id="fcPrev">← Prev</button>
+      <button class="fc-btn primary" id="fcShuffle">Shuffle</button>
+      <button class="fc-btn" id="fcNext">Next →</button>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== QUIZ ===================== -->
+<section class="panel" id="panel-quiz">
+  <div class="section-head">
+    <h2>Quiz bank</h2>
+    <p>150 MCQs across 3 difficulty levels. Answer choices reshuffle every time you (re)start.</p>
+  </div>
+  <div class="gate-tabs" id="quizLevelTabs">
+    <button class="gate-tab active" data-level="easy">Level 1 · Easy (60)</button>
+    <button class="gate-tab" data-level="medium">Level 2 · Medium (50)</button>
+    <button class="gate-tab" data-level="hard">Level 3 · Hard (40)</button>
+  </div>
+  <div class="quiz-top">
+    <div class="quiz-score">Score: <b id="quizScore">0</b> / <span id="quizTotal">60</span></div>
+    <button class="fc-btn" id="quizRestart">Reshuffle &amp; restart</button>
+  </div>
+  <div class="quiz-track"><div class="quiz-track-fill" id="quizTrackFill"></div></div>
+  <div id="quizArea"></div>
+</section>
+
+<!-- ===================== TOPICS ===================== -->
+<section class="panel" id="panel-topics">
+  <div class="section-head">
+    <h2>Topics — headings &amp; defined terms</h2>
+    <p>The lecture's structure, sub-points, and every term that was explicitly defined.</p>
+  </div>
+  <div class="card-grid">
+
+    <div class="rule-card" style="--accent:var(--amber)">
+      <h3><span class="dot"></span>1 · The Nervous System (NS)</h3>
+      <ul>
+        <li>Definition &amp; basic functional unit (neuron)</li>
+        <li>Neuroglia / glial cells — role</li>
+        <li>Organs of the NS: brain, spinal cord, receptors, nerves</li>
+        <li>Division of the nervous system</li>
+      </ul>
+    </div>
+
+    <div class="rule-card" style="--accent:var(--teal)">
+      <h3><span class="dot"></span>2 · CNS &amp; PNS</h3>
+      <ul>
+        <li>CNS — definition, components, functions</li>
+        <li>Sensory data vs. motor commands</li>
+        <li>PNS — definition &amp; role
+          <ul>
+            <li>Afferent division</li>
+            <li>Efferent division
+              <ul>
+                <li>Somatic nervous system (SNS)</li>
+                <li>Autonomic nervous system (ANS)
+                  <ul>
+                    <li>Sympathetic division</li>
+                    <li>Parasympathetic division</li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+    <div class="rule-card" style="--accent:var(--violet)">
+      <h3><span class="dot"></span>3 · The Transmembrane Potential</h3>
+      <ul>
+        <li>ICF vs. ECF ionic composition</li>
+        <li>Selective permeability &amp; ion channels</li>
+        <li>Chemical &amp; electrical gradients</li>
+        <li>Sodium–Potassium ATPase pump</li>
+        <li>Resting potential (-70 mV) &amp; the electro-chemical gradient</li>
+      </ul>
+    </div>
+
+    <div class="rule-card" style="--accent:var(--coral)">
+      <h3><span class="dot"></span>4 · Ion Channels</h3>
+      <ul>
+        <li>Passive (leak) channels</li>
+        <li>Active / gated channels — 3 states</li>
+        <li>Classes of gated channels: chemically, voltage, mechanically regulated</li>
+      </ul>
+    </div>
+
+    <div class="rule-card" style="--accent:var(--amber)">
+      <h3><span class="dot"></span>5 · Graded (Local) Potentials</h3>
+      <ul>
+        <li>Definition &amp; local current</li>
+        <li>Depolarization vs. hyperpolarization</li>
+        <li>Characteristics of graded potentials</li>
+      </ul>
+    </div>
+
+    <div class="rule-card data-card" style="--accent:var(--teal)">
+      <h3><span class="dot"></span>Defined terms (glossary)</h3>
+      <ul>
+        <li><b>Neuron</b> — basic functional unit of the NS.</li>
+        <li><b>Neuroglia / glial cells</b> — support &amp; protect neurons.</li>
+        <li><b>CNS</b> — brain + spinal cord.</li>
+        <li><b>PNS</b> — all neural tissue outside the CNS.</li>
+        <li><b>Afferent division</b> — sensory info → CNS.</li>
+        <li><b>Efferent division</b> — motor commands from CNS → effectors.</li>
+        <li><b>SNS</b> — controls skeletal muscle contraction.</li>
+        <li><b>ANS</b> — involuntary control of smooth/cardiac muscle &amp; glands.</li>
+        <li><b>ICF / ECF</b> — intracellular / extracellular fluid.</li>
+        <li><b>Resting potential</b> — steady transmembrane voltage (-70 mV).</li>
+        <li><b>Depolarization</b> — shift of Vm toward 0 mV or above.</li>
+        <li><b>Hyperpolarization</b> — shift of Vm more negative.</li>
+        <li><b>Local current</b> — ion movement along inner/outer membrane surface.</li>
+        <li><b>Na⁺/K⁺ ATPase</b> — pump ejecting 3 Na⁺ for every 2 K⁺.</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===================== HIGH-YIELD ===================== -->
+<section class="panel" id="panel-highyield">
+  <div class="section-head">
+    <h2>High-yield — likely to be tested</h2>
+    <p>The facts that show up again and again in exam questions on this topic.</p>
+  </div>
+  <div class="card-grid">
+
+    <div class="rule-card data-card" style="--accent:var(--coral)">
+      <h3><span class="dot"></span>Numbers to memorize</h3>
+      <div class="stat-row"><span>Resting membrane potential</span><span class="v">-70 mV</span></div>
+      <div class="stat-row"><span>Example hyperpolarized shift</span><span class="v">-80 mV</span></div>
+      <div class="stat-row"><span>Na⁺/K⁺ pump exchange ratio</span><span class="v">3 out : 2 in</span></div>
+      <div class="stat-row"><span>Gated channel classes</span><span class="v">3</span></div>
+      <div class="stat-row"><span>Gated channel states</span><span class="v">3</span></div>
+    </div>
+
+    <div class="rule-card" style="--accent:var(--amber)">
+      <h3><span class="dot"></span>Most commonly confused</h3>
+      <ul>
+        <li><b>Afferent</b> = sensory (in) vs. <b>Efferent</b> = motor (out).</li>
+        <li><b>Depolarization</b> (Na⁺ in, → 0 mV) vs. <b>Hyperpolarization</b> (K⁺ out, more negative).</li>
+        <li><b>Leak channels</b> (always open) vs. <b>Gated channels</b> (open/close on a stimulus).</li>
+        <li><b>Sympathetic</b> (fight/flight) vs. <b>Parasympathetic</b> (rest &amp; housekeeping).</li>
+      </ul>
+    </div>
+
+    <div class="rule-card" style="--accent:var(--teal)">
+      <h3><span class="dot"></span>Cause → effect, exam-style</h3>
+      <ul>
+        <li>ECF high Na⁺/Cl⁻, ICF high K⁺/proteins → drives the resting gradient.</li>
+        <li>Membrane more permeable to K⁺ than Na⁺ → K⁺ leaves faster → ICF becomes more negative.</li>
+        <li>Na⁺/K⁺ ATPase pumps 3 Na⁺ out : 2 K⁺ in → net loss of +ve charge inside → contributes to negativity.</li>
+        <li>Opening voltage-gated Na⁺ channels = the key trigger step of an action potential.</li>
+        <li>Stronger stimulus → more channels open → larger &amp; wider graded potential.</li>
+      </ul>
+    </div>
+
+    <div class="rule-card" style="--accent:var(--violet)">
+      <h3><span class="dot"></span>Likely exam angles</h3>
+      <ul>
+        <li>Match each channel type to its trigger (ligand / voltage / mechanical distortion).</li>
+        <li>Given a division (e.g., "controls cardiac muscle involuntarily") → identify SNS vs. ANS vs. sympathetic/parasympathetic.</li>
+        <li>Predict Vm shift from a described ion movement (which ion, which direction).</li>
+        <li>Explain why the pump, not just leak channels, is essential to the resting potential.</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="brand">STUDY SMART · Nervous System Physiology</div>
+  <div>© <span id="yearNow"></span> Anmar Taha. All rights reserved. — جميع الحقوق محفوظة</div>
+  <div class="footer-contact">Telegram: <b>@AnmarTaha</b> &nbsp;·&nbsp; Instagram: <b>a.za18</b></div>
+</footer>
+
+<script>
+/* ============================================================
+   TAB NAVIGATION
+============================================================ */
+document.getElementById('yearNow').textContent = new Date().getFullYear();
+document.querySelectorAll('.yearNow2').forEach(el=>el.textContent = new Date().getFullYear());
+
+const tabBtns = document.querySelectorAll('.tab-btn');
+const panels = document.querySelectorAll('.panel');
+tabBtns.forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    tabBtns.forEach(b=>b.classList.remove('active'));
+    panels.forEach(p=>p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('panel-'+btn.dataset.panel).classList.add('active');
+    window.scrollTo({top:0,behavior:'smooth'});
+  });
+});
+
+/* ============================================================
+   DIAGRAM 1 — NEURON
+============================================================ */
+const neuronParts = {
+  dendrite:{name:'Dendrite', text:'Receives signals from other neurons or receptors and conducts graded potentials toward the cell body.'},
+  nucleus:{name:'Nucleus', text:"Holds the neuron's genetic material; sits inside the soma."},
+  cellbody:{name:'Cell Body (Soma)', text:'Integrates incoming signals; contains the nucleus and most organelles.'},
+  axonhillock:{name:'Axon Hillock', text:'Trigger zone where the axon leaves the soma; dense in voltage-gated Na⁺ channels — action potentials usually start here.'},
+  myelin:{name:'Myelin Sheath', text:'Insulating wrap formed by Schwann cells (PNS) or oligodendrocytes (CNS); speeds up impulse conduction.'},
+  node:{name:'Node of Ranvier', text:'Gap between myelin segments where the membrane is exposed — enables saltatory conduction.'},
+  terminal:{name:'Axon Terminal', text:'End branches of the axon that release neurotransmitter at the synapse.'}
+};
+document.querySelectorAll('#neuronSvg .hotspot').forEach(dot=>{
+  dot.addEventListener('click', ()=>{
+    document.querySelectorAll('#neuronSvg .hotspot').forEach(d=>d.classList.remove('active'));
+    dot.classList.add('active');
+    const p = neuronParts[dot.dataset.key];
+    document.getElementById('neuronInfo').innerHTML = '<b>'+p.name+'</b> — '+p.text;
+  });
+});
+
+/* ============================================================
+   DIAGRAM 2 — CNS/PNS HIERARCHY
+============================================================ */
+const hierarchy = [
+  {id:'ns', label:'Nervous System', level:0, color:'var(--amber)', text:'All neural tissue in the body; basic functional unit is the neuron, supported by neuroglia.'},
+  {id:'cns', label:'CNS — Brain & Spinal Cord', level:1, color:'var(--teal)', text:'Integrates, processes & coordinates sensory data and motor commands; seat of intelligence, memory, learning & emotion.'},
+  {id:'pns', label:'PNS', level:1, color:'var(--violet)', text:'All neural tissue outside the CNS; delivers sensory info to the CNS and carries motor commands to the periphery.'},
+  {id:'afferent', label:'Afferent (Sensory) Division', level:2, color:'var(--violet)', text:'Brings sensory information to the CNS from receptors in peripheral tissues & organs.'},
+  {id:'efferent', label:'Efferent (Motor) Division', level:2, color:'var(--violet)', text:'Carries motor commands from the CNS to muscles & glands (effectors).'},
+  {id:'somatic', label:'Somatic Nervous System', level:3, color:'var(--coral)', text:'Controls skeletal muscle contractions — voluntary or involuntary.'},
+  {id:'autonomic', label:'Autonomic Nervous System (ANS)', level:3, color:'var(--coral)', text:'Visceral motor system; involuntary regulation of smooth muscle, cardiac muscle & glandular secretion.'},
+  {id:'sympathetic', label:'Sympathetic', level:4, color:'var(--amber)', text:"Mobilizes body systems during activity — \u2018fight or flight\u2019."},
+  {id:'parasympathetic', label:'Parasympathetic', level:4, color:'var(--amber)', text:"Conserves energy; promotes \u2018housekeeping\u2019 functions during rest."}
+];
+const treeEl = document.getElementById('hierarchyTree');
+hierarchy.forEach(row=>{
+  const div = document.createElement('div');
+  div.className = 'tree-row lvl'+row.level;
+  div.innerHTML = '<span class="bar" style="background:'+row.color+'"></span><b>'+row.label+'</b>';
+  div.addEventListener('click', ()=>{
+    treeEl.querySelectorAll('.tree-row').forEach(r=>r.classList.remove('active'));
+    div.classList.add('active');
+    document.getElementById('hierarchyInfo').innerHTML = '<b>'+row.label+'</b> — '+row.text;
+  });
+  treeEl.appendChild(div);
+});
+
+/* ============================================================
+   DIAGRAM 3 — GLIAL CELLS
+============================================================ */
+const gliaData = [
+  {name:'Astrocyte', where:'CNS', func:'Maintains the blood-brain barrier, provides structural support, regulates ion/nutrient/gas levels, absorbs & recycles neurotransmitters, and forms scar tissue after injury.'},
+  {name:'Oligodendrocyte', where:'CNS', func:'Myelinates CNS axons and provides structural framework.'},
+  {name:'Microglia', where:'CNS', func:'Removes cell debris, wastes & pathogens by phagocytosis.'},
+  {name:'Ependymal cell', where:'CNS', func:'Lines the ventricles & central canal; assists in producing, circulating & monitoring cerebrospinal fluid.'},
+  {name:'Schwann cell', where:'PNS', func:'Surrounds PNS axons; responsible for myelination of peripheral axons; participates in repair after injury.'},
+  {name:'Satellite cell', where:'PNS', func:'Surrounds neuron cell bodies in ganglia; regulates O₂, CO₂, nutrient & neurotransmitter levels around them.'}
+];
+const gliaGrid = document.getElementById('gliaGrid');
+gliaData.forEach(g=>{
+  const card = document.createElement('div');
+  card.className='glia-card';
+  card.innerHTML =
+    '<div class="glia-inner">'+
+      '<div class="glia-face glia-front">'+
+        '<span class="glia-badge '+(g.where==='CNS'?'badge-cns':'badge-pns')+'">'+g.where+'</span>'+
+        '<div><div class="name">'+g.name+'</div><div class="glia-flip-hint">tap to flip</div></div>'+
+      '</div>'+
+      '<div class="glia-face glia-back">'+g.func+'</div>'+
+    '</div>';
+  card.addEventListener('click', ()=>card.classList.toggle('flipped'));
+  gliaGrid.appendChild(card);
+});
+
+/* ============================================================
+   DIAGRAM 4 — ION MAP
+============================================================ */
+const ionInfo = {
+  na:{label:'Na⁺ ×8', note:'Sodium is concentrated outside the cell; rushes in through Na⁺ channels during depolarization.'},
+  cl:{label:'Cl⁻ ×5', note:'Chloride sits mainly outside the cell, alongside sodium.'},
+  k:{label:'K⁺ ×8', note:'Potassium is concentrated inside the cell; leaks out through leak channels, pulling the resting potential negative.'},
+  pr:{label:'Pr⁻ ×5', note:'Large, negatively charged proteins are trapped inside — they cannot cross the membrane.'}
+};
+function buildIonBadges(containerId, keys, counts){
+  const el = document.getElementById(containerId);
+  keys.forEach((k,i)=>{
+    for(let n=0;n<counts[i];n++){
+      const b = document.createElement('div');
+      b.className='ion-badge ion-'+k;
+      b.textContent = (k==='na'?'Na⁺':k==='cl'?'Cl⁻':k==='k'?'K⁺':'Pr⁻');
+      b.addEventListener('click', ()=>{
+        document.getElementById('ionInfo').innerHTML = '<b>'+ionInfo[k].label+'</b> — '+ionInfo[k].note;
+      });
+      el.appendChild(b);
+    }
+  });
+}
+buildIonBadges('ecfZone', ['na','cl'], [8,5]);
+buildIonBadges('icfZone', ['k','pr'], [8,5]);
+
+/* ============================================================
+   DIAGRAM 5 — Na/K PUMP ANIMATION
+============================================================ */
+const pumpStage = document.getElementById('pumpStage');
+const pumpBtn = document.getElementById('pumpBtn');
+let pumpBusy = false;
+pumpBtn.addEventListener('click', ()=>{
+  if(pumpBusy) return;
+  pumpBusy = true;
+  pumpStage.querySelectorAll('.ion-dot').forEach(d=>d.remove());
+  const naDots=[], kDots=[];
+  for(let i=0;i<3;i++){
+    const d = document.createElement('div');
+    d.className='ion-dot dot-na';
+    d.textContent='Na';
+    d.style.left = (30+i*14)+'%';
+    d.style.top = '72%';
+    pumpStage.appendChild(d);
+    naDots.push(d);
+  }
+  for(let i=0;i<2;i++){
+    const d = document.createElement('div');
+    d.className='ion-dot dot-k';
+    d.textContent='K';
+    d.style.left = (60+i*14)+'%';
+    d.style.top = '20%';
+    pumpStage.appendChild(d);
+    kDots.push(d);
+  }
+  requestAnimationFrame(()=>{
+    setTimeout(()=>{
+      naDots.forEach((d,i)=>{ d.style.left=(30+i*14)+'%'; d.style.top='18%'; });
+      kDots.forEach((d,i)=>{ d.style.left=(60+i*14)+'%'; d.style.top='74%'; });
+      document.getElementById('pumpInfo').innerHTML = 'Cycle running: <b>3 Na⁺</b> pumped out, <b>2 K⁺</b> pumped in — ATP-dependent.';
+    }, 150);
+  });
+  setTimeout(()=>{
+    naDots.concat(kDots).forEach(d=>d.style.opacity='0');
+  }, 1500);
+  setTimeout(()=>{
+    naDots.concat(kDots).forEach(d=>d.remove());
+    document.getElementById('pumpInfo').innerHTML = 'Each cycle: 3 Na⁺ leave the cell, 2 K⁺ enter — powered by ATP.';
+    pumpBusy = false;
+  }, 2000);
+});
+
+/* ============================================================
+   DIAGRAM 6 — GATED CHANNELS
+============================================================ */
+const gateData = {
+  chemical:{trigger:'Binding of a specific ligand — e.g. acetylcholine (ACh) at the neuromuscular junction.', example:'Most common on the dendrites & soma of neurons, at synapses.'},
+  voltage:{trigger:'A change in the transmembrane potential.', example:'Opening of voltage-gated Na⁺ channels is the key step that generates an action potential.'},
+  mechanical:{trigger:'Physical distortion of the membrane surface.', example:'Found in sensory receptors that respond to touch, pressure & vibration.'}
+};
+let currentGate = 'chemical';
+const gateVisual = document.getElementById('gateVisual');
+const gateInfoEl = document.getElementById('gateInfo');
+function renderGateInfo(){
+  const g = gateData[currentGate];
+  gateInfoEl.innerHTML = '<b>Trigger:</b> '+g.trigger+'<br><b>Example:</b> '+g.example;
+}
+renderGateInfo();
+document.querySelectorAll('#gateTabs .gate-tab').forEach(tab=>{
+  tab.addEventListener('click', ()=>{
+    document.querySelectorAll('#gateTabs .gate-tab').forEach(t=>t.classList.remove('active'));
+    tab.classList.add('active');
+    currentGate = tab.dataset.key;
+    gateVisual.classList.remove('open');
+    renderGateInfo();
+  });
+});
+document.getElementById('gateBtn').addEventListener('click', ()=>{
+  gateVisual.classList.add('open');
+  setTimeout(()=>gateVisual.classList.remove('open'), 1200);
+});
+
+/* ============================================================
+   DIAGRAM 7 — GRADED POTENTIAL GRAPH
+============================================================ */
+const gradedCurves = {
+  weak:{ d:'M20,100 C100,100 150,100 180,80 C190,74 210,74 220,80 C250,100 300,100 380,100', peak:'-50 mV', y:'34', label:'Weak depolarizing stimulus'},
+  strong:{ d:'M20,100 C100,100 150,100 180,40 C190,25 210,25 220,40 C250,100 300,100 380,100', peak:'-20 mV', y:'22', label:'Strong depolarizing stimulus'},
+  hyper:{ d:'M20,100 C100,100 150,100 180,118 C190,126 210,126 220,118 C250,100 300,100 380,100', peak:'-80 mV', y:'140', label:'Hyperpolarizing stimulus'}
+};
+const gradedPath = document.getElementById('gradedPath');
+const gradedPeakLabel = document.getElementById('gradedPeakLabel');
+function setGraded(key){
+  const c = gradedCurves[key];
+  gradedPath.setAttribute('d', c.d);
+  gradedPeakLabel.setAttribute('y', c.y);
+  gradedPeakLabel.textContent = 'peak ≈ '+c.peak;
+  document.getElementById('gradedInfo').innerHTML = '<b>'+c.label+'</b> — amplitude decreases with distance from the stimulus site; spreads passively via local current.';
+}
+setGraded('weak');
+document.querySelectorAll('.graph-btn').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('.graph-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    setGraded(btn.dataset.key);
+  });
+});
+
+/* ============================================================
+   MINI MAP
+============================================================ */
+const mmData = {
+  center:{title:'Nervous System Physiology', items:['All neural tissue in the body, organized into CNS + PNS.', 'Functional unit: the neuron, supported by neuroglia.', 'Click any surrounding node to explore a branch.']},
+  cells:{title:'Cells & Anatomy', items:['Neuron: dendrite → soma → axon → axon terminal.', 'Glia: astrocyte, oligodendrocyte, microglia, ependymal, Schwann, satellite.', 'Node of Ranvier — gap in myelin enabling saltatory conduction.']},
+  cnspns:{title:'CNS & PNS', items:['CNS = brain + spinal cord — integration & higher functions.', 'PNS = all neural tissue outside the CNS.', 'Afferent (sensory) vs. efferent (motor) divisions.']},
+  ans:{title:'ANS Divisions', items:['Somatic NS → skeletal muscle (voluntary/involuntary).', 'Autonomic NS → smooth/cardiac muscle & glands.', 'Sympathetic = fight-or-flight; Parasympathetic = rest & digest.']},
+  membrane:{title:'Membrane Potential', items:['ECF high in Na⁺, Cl⁻; ICF high in K⁺, proteins⁻.', 'Resting potential ≈ -70 mV.', 'Na⁺/K⁺ ATPase: 3 Na⁺ out : 2 K⁺ in — adds to negativity.']},
+  channels:{title:'Channels & Graded Potentials', items:['Leak, chemically-, voltage- & mechanically-gated channels.', 'Depolarization (→0 mV+) vs. hyperpolarization (→more negative).', 'Local current spreads the effect; it decays with distance.']}
+};
+const mmPanel = document.getElementById('mmPanel');
+document.querySelectorAll('.mm-node').forEach(node=>{
+  node.addEventListener('click', ()=>{
+    document.querySelectorAll('.mm-node').forEach(n=>n.classList.remove('active'));
+    node.classList.add('active');
+    const d = mmData[node.dataset.key];
+    mmPanel.innerHTML = '<h4>'+d.title+'</h4><ul>'+d.items.map(i=>'<li>'+i+'</li>').join('')+'</ul>';
+  });
+});
+
+/* ============================================================
+   FLASHCARDS
+============================================================ */
+const flashDataByLevel = {
+  "easy": [
+    {
+      "tag": "Organization",
+      "term": "Nervous System (NS)",
+      "def": "Includes all the neural tissue in the body."
+    },
+    {
+      "tag": "Organization",
+      "term": "Neuron",
+      "def": "The basic functional unit of the nervous system."
+    },
+    {
+      "tag": "Organization",
+      "term": "Neuroglia",
+      "def": "Supporting cells (glial cells) that separate and protect neurons."
+    },
+    {
+      "tag": "Organization",
+      "term": "Organs of the NS",
+      "def": "Brain, spinal cord, receptors in complex sense organs, and nerves."
+    },
+    {
+      "tag": "Organization",
+      "term": "CNS",
+      "def": "Consists of the brain and the spinal cord."
+    },
+    {
+      "tag": "Organization",
+      "term": "CNS function",
+      "def": "Integrates, processes, and coordinates sensory data and motor commands."
+    },
+    {
+      "tag": "Organization",
+      "term": "CNS higher functions",
+      "def": "Intelligence, memory, learning, and emotion."
+    },
+    {
+      "tag": "Organization",
+      "term": "Sensory data",
+      "def": "Information about conditions inside or outside the body."
+    },
+    {
+      "tag": "Organization",
+      "term": "Motor commands",
+      "def": "Control or adjust the activities of peripheral organs, e.g. skeletal muscles."
+    },
+    {
+      "tag": "Organization",
+      "term": "PNS",
+      "def": "Includes all the neural tissue outside the CNS."
+    },
+    {
+      "tag": "Organization",
+      "term": "PNS function",
+      "def": "Delivers sensory information to the CNS and carries motor commands to peripheral tissues."
+    },
+    {
+      "tag": "Organization",
+      "term": "Afferent division",
+      "def": "Brings sensory information to the CNS from receptors in peripheral tissue & organs."
+    },
+    {
+      "tag": "Organization",
+      "term": "Efferent division",
+      "def": "Carries motor commands from the CNS to muscles & glands (effectors)."
+    },
+    {
+      "tag": "ANS",
+      "term": "Somatic Nervous System (SNS)",
+      "def": "Controls skeletal muscle contractions, voluntary or involuntary."
+    },
+    {
+      "tag": "ANS",
+      "term": "Autonomic Nervous System (ANS)",
+      "def": "The visceral motor system."
+    },
+    {
+      "tag": "ANS",
+      "term": "ANS function",
+      "def": "Automatic, involuntary regulation of smooth muscle, cardiac muscle, and glandular secretion."
+    },
+    {
+      "tag": "ANS",
+      "term": "Sympathetic division",
+      "def": "Mobilizes body systems during activity — “fight or flight.”"
+    },
+    {
+      "tag": "ANS",
+      "term": "Parasympathetic division",
+      "def": "Conserves energy; promotes “housekeeping” functions during rest."
+    },
+    {
+      "tag": "Anatomy",
+      "term": "Dendrite",
+      "def": "Branch-like extension of a neuron that receives signals."
+    },
+    {
+      "tag": "Anatomy",
+      "term": "Soma (cell body)",
+      "def": "Contains the nucleus of the neuron."
+    },
+    {
+      "tag": "Anatomy",
+      "term": "Axon",
+      "def": "Conducts electrical impulses away from the cell body."
+    },
+    {
+      "tag": "Anatomy",
+      "term": "Node of Ranvier",
+      "def": "Gap between adjacent myelin-forming cells along an axon."
+    },
+    {
+      "tag": "Anatomy",
+      "term": "Myelin sheath",
+      "def": "The insulating covering of the axon."
+    },
+    {
+      "tag": "Anatomy",
+      "term": "Axon terminal (terminal buttons)",
+      "def": "End branches of the axon that form synapses."
+    },
+    {
+      "tag": "Anatomy",
+      "term": "Axon hillock",
+      "def": "Region of the soma where the axon originates."
+    },
+    {
+      "tag": "Glia",
+      "term": "Satellite cells",
+      "def": "Surround neuron cell bodies in ganglia; regulate O₂, CO₂, nutrient & neurotransmitter levels."
+    },
+    {
+      "tag": "Glia",
+      "term": "Schwann cells",
+      "def": "Surround axons in the PNS; responsible for myelination of peripheral axons."
+    },
+    {
+      "tag": "Glia",
+      "term": "Schwann cell repair role",
+      "def": "Participate in the repair process after peripheral nerve injury."
+    },
+    {
+      "tag": "Glia",
+      "term": "Oligodendrocytes",
+      "def": "Myelinate CNS axons and provide structural framework."
+    },
+    {
+      "tag": "Glia",
+      "term": "Astrocytes",
+      "def": "Maintain the blood–brain barrier and provide structural support."
+    },
+    {
+      "tag": "Glia",
+      "term": "Astrocyte extra roles",
+      "def": "Regulate ion/nutrient/gas concentrations, absorb & recycle neurotransmitters, form scar tissue after injury."
+    },
+    {
+      "tag": "Glia",
+      "term": "Microglia",
+      "def": "Remove cell debris, wastes, and pathogens by phagocytosis."
+    },
+    {
+      "tag": "Glia",
+      "term": "Ependymal cells",
+      "def": "Line the ventricles and central canal; produce, circulate & monitor CSF."
+    },
+    {
+      "tag": "Glia",
+      "term": "PNS neuroglia",
+      "def": "Satellite cells and Schwann cells."
+    },
+    {
+      "tag": "Glia",
+      "term": "CNS neuroglia",
+      "def": "Oligodendrocytes, astrocytes, microglia, and ependymal cells."
+    },
+    {
+      "tag": "Membrane",
+      "term": "ECF ion composition",
+      "def": "High in Na⁺ and Cl⁻."
+    },
+    {
+      "tag": "Membrane",
+      "term": "ICF ion composition",
+      "def": "High in K⁺ and negatively charged proteins (Pr⁻)."
+    },
+    {
+      "tag": "Membrane",
+      "term": "Ion permeability of the lipid bilayer",
+      "def": "Ions cannot freely cross the lipid bilayer."
+    },
+    {
+      "tag": "Transport",
+      "term": "Ion channels (general)",
+      "def": "The route by which ions cross the cell membrane."
+    },
+    {
+      "tag": "Transport",
+      "term": "Passive transport types",
+      "def": "Diffusion and facilitated diffusion."
+    },
+    {
+      "tag": "Transport",
+      "term": "Active transport",
+      "def": "Requires ATP; moves ions/substances against their gradient."
+    },
+    {
+      "tag": "Membrane",
+      "term": "Cell membrane",
+      "def": "The structure that separates the inside of the cell from the outside environment."
+    },
+    {
+      "tag": "Membrane",
+      "term": "Semi-permeable membrane",
+      "def": "Embedded protein channels let certain ions cross at a controlled rate."
+    },
+    {
+      "tag": "Membrane",
+      "term": "Resting membrane potential value",
+      "def": "Approximately -70 mV (-0.07 V) in a neuron."
+    },
+    {
+      "tag": "Membrane",
+      "term": "Potential difference units",
+      "def": "Measured in volts or millivolts (mV)."
+    },
+    {
+      "tag": "Membrane",
+      "term": "Measuring device",
+      "def": "A microelectrode plus a reference electrode connected to a potentiometer."
+    },
+    {
+      "tag": "Pump",
+      "term": "Sodium-Potassium ATPase exchange ratio",
+      "def": "3 intracellular Na⁺ pumped out for 2 extracellular K⁺ pumped in."
+    },
+    {
+      "tag": "Pump",
+      "term": "Na⁺/K⁺ pump contribution",
+      "def": "Adds to the negativity of the transmembrane potential."
+    },
+    {
+      "tag": "Channels",
+      "term": "Passive (leak) channels",
+      "def": "Always open, but permeability can shift with local conditions."
+    },
+    {
+      "tag": "Channels",
+      "term": "Gated (active) channels",
+      "def": "Open or close in response to specific stimuli."
+    },
+    {
+      "tag": "Channels",
+      "term": "Gated channel states",
+      "def": "Closed but capable of opening; open (activated); closed & incapable of opening."
+    },
+    {
+      "tag": "Channels",
+      "term": "Chemically regulated channels",
+      "def": "Open/close upon binding a specific chemical, e.g. ACh at the neuromuscular junction."
+    },
+    {
+      "tag": "Channels",
+      "term": "Voltage regulated channels",
+      "def": "Open/close in response to changes in transmembrane potential."
+    },
+    {
+      "tag": "Channels",
+      "term": "Voltage-gated Na⁺ channels",
+      "def": "Key step in the generation of an action potential."
+    },
+    {
+      "tag": "Channels",
+      "term": "Mechanically regulated channels",
+      "def": "Open/close with physical distortion of the membrane."
+    },
+    {
+      "tag": "Channels",
+      "term": "Mechanoreceptor example",
+      "def": "Sensory receptors for touch, pressure & vibration."
+    },
+    {
+      "tag": "Graded",
+      "term": "Two types of transmembrane potential change",
+      "def": "Graded potentials and action potential."
+    },
+    {
+      "tag": "Graded",
+      "term": "Graded potential (definition)",
+      "def": "A local change in transmembrane potential that cannot spread far from the stimulus site."
+    },
+    {
+      "tag": "Graded",
+      "term": "Depolarization (definition)",
+      "def": "A shift of the transmembrane potential toward 0 mV or above."
+    },
+    {
+      "tag": "Graded",
+      "term": "Hyperpolarization (definition)",
+      "def": "A shift of the resting potential to a more negative value, e.g. -80 mV."
+    }
+  ],
+  "medium": [
+    {
+      "tag": "Organization",
+      "term": "CNS vs PNS",
+      "def": "CNS = brain & spinal cord (central integration); PNS = all neural tissue outside the CNS (nerves & receptors)."
+    },
+    {
+      "tag": "Organization",
+      "term": "Afferent vs efferent",
+      "def": "Afferent carries sensory info toward the CNS; efferent carries motor commands away from the CNS."
+    },
+    {
+      "tag": "ANS",
+      "term": "SNS vs ANS targets",
+      "def": "SNS acts on skeletal muscle (voluntary/involuntary); ANS acts involuntarily on smooth muscle, cardiac muscle, and glands."
+    },
+    {
+      "tag": "ANS",
+      "term": "Sympathetic vs parasympathetic",
+      "def": "Opposing ANS divisions: sympathetic = activity/fight-or-flight; parasympathetic = rest/housekeeping."
+    },
+    {
+      "tag": "Organization",
+      "term": "Why CNS is an integrative center",
+      "def": "It processes sensory input and generates motor output, while also housing higher functions like memory and emotion."
+    },
+    {
+      "tag": "Organization",
+      "term": "Neuron vs neuroglia relationship",
+      "def": "Neuron = functional signaling unit; neuroglia = supportive cells that protect/nourish neurons without conducting impulses themselves."
+    },
+    {
+      "tag": "Glia",
+      "term": "CNS vs PNS myelination",
+      "def": "Oligodendrocytes myelinate CNS axons; Schwann cells myelinate PNS axons."
+    },
+    {
+      "tag": "Glia",
+      "term": "Repair capacity difference",
+      "def": "Schwann cells participate in PNS nerve repair; this repair role is not attributed to oligodendrocytes in the CNS."
+    },
+    {
+      "tag": "Glia",
+      "term": "Astrocyte vs microglia function",
+      "def": "Astrocytes give structural/metabolic support and barrier function; microglia are the phagocytic immune cells of the CNS."
+    },
+    {
+      "tag": "Glia",
+      "term": "Ependymal cells vs astrocytes",
+      "def": "Ependymal cells line CSF spaces and help produce/monitor CSF; astrocytes maintain the blood-brain barrier around vessels."
+    },
+    {
+      "tag": "Glia",
+      "term": "Satellite cells vs Schwann cells",
+      "def": "Both are PNS glia; satellite cells surround cell bodies in ganglia, Schwann cells surround/myelinate axons."
+    },
+    {
+      "tag": "Membrane",
+      "term": "Why ions can't freely cross the membrane",
+      "def": "The lipid bilayer is impermeable to charged ions, so they need protein channels or active transport."
+    },
+    {
+      "tag": "Membrane",
+      "term": "Channel protein vs gated channel protein",
+      "def": "A channel protein is always open; a gated channel protein switches between open and closed states."
+    },
+    {
+      "tag": "Transport",
+      "term": "Diffusion vs facilitated diffusion vs active transport",
+      "def": "Diffusion moves down a gradient unaided; facilitated diffusion uses a protein but is still passive; active transport uses ATP against the gradient."
+    },
+    {
+      "tag": "Membrane",
+      "term": "Why resting Vm is negative inside",
+      "def": "Because K⁺ leaves the cell faster than Na⁺ enters (membrane more permeable to K⁺), leaving the interior relatively negative."
+    },
+    {
+      "tag": "Gradient",
+      "term": "Chemical & electrical gradient on Na⁺ at rest",
+      "def": "Both the chemical gradient (Na⁺ higher outside) and the electrical gradient (interior negative) push Na⁺ INTO the cell."
+    },
+    {
+      "tag": "Gradient",
+      "term": "Chemical & electrical gradient on K⁺ at rest",
+      "def": "Chemical gradient pushes K⁺ OUT, but the electrical gradient (attraction to negative interior, repulsion from positive exterior) opposes that outward movement."
+    },
+    {
+      "tag": "Gradient",
+      "term": "Electro-chemical gradient (meaning)",
+      "def": "The combined effect of the electrical and chemical gradients on ion movement — they may reinforce or oppose one another."
+    },
+    {
+      "tag": "Membrane",
+      "term": "Why the membrane acts as a “resistance”",
+      "def": "It separates +ve and -ve charges and resists their free movement, allowing a potential difference to exist."
+    },
+    {
+      "tag": "Pump",
+      "term": "Role of ATP in the Na⁺/K⁺ pump",
+      "def": "ATP actively ejects Na⁺ from and pulls K⁺ into the cell, against their concentration gradients."
+    },
+    {
+      "tag": "Pump",
+      "term": "Net charge effect of the Na⁺/K⁺ ATPase",
+      "def": "Pumping out 3 Na⁺ for every 2 K⁺ in makes the cell interior more negative than diffusion alone would."
+    },
+    {
+      "tag": "Pump",
+      "term": "Passive leak vs Na⁺/K⁺ pump",
+      "def": "Leak channels let Na⁺ slowly enter & K⁺ slowly leave; the pump actively reverses this leak to maintain the resting potential."
+    },
+    {
+      "tag": "Channels",
+      "term": "Why chemically-gated channels cluster at synapses",
+      "def": "They respond to neurotransmitters released during synaptic transmission at the dendrite/soma region."
+    },
+    {
+      "tag": "Channels",
+      "term": "Why voltage-gated channels matter in excitable tissue",
+      "def": "They open/close based on membrane potential changes and underlie generation & conduction of action potentials."
+    },
+    {
+      "tag": "Channels",
+      "term": "Three gate triggers compared",
+      "def": "Chemically-, voltage-, and mechanically-gated channels open in response to a chemical, a voltage change, or physical distortion, respectively."
+    },
+    {
+      "tag": "Graded",
+      "term": "Graded potential and local current",
+      "def": "A graded potential's local effect spreads to adjacent membrane through local current, but this spread decays with distance."
+    },
+    {
+      "tag": "Graded",
+      "term": "Why Na⁺ channel opening causes depolarization",
+      "def": "Na⁺ entering the cell adds positive charge, shifting Vm toward 0 mV."
+    },
+    {
+      "tag": "Graded",
+      "term": "Why K⁺ channel opening causes hyperpolarization",
+      "def": "K⁺ leaving the cell removes positive charge from inside, shifting Vm further negative (e.g. to -80 mV)."
+    },
+    {
+      "tag": "Graded",
+      "term": "Stimulus strength vs graded potential",
+      "def": "A stronger stimulus opens more channels, producing a larger local current and a bigger, more widespread change in Vm."
+    },
+    {
+      "tag": "Graded",
+      "term": "Why graded potentials are “local”",
+      "def": "The effect is strongest at the stimulus site and decreases with distance, unlike a self-propagating signal."
+    },
+    {
+      "tag": "Membrane",
+      "term": "ECF/ICF composition and resting potential",
+      "def": "The unequal distribution of Na⁺, K⁺, Cl⁻, and proteins across the membrane is the basis for the resting membrane potential."
+    },
+    {
+      "tag": "Membrane",
+      "term": "K⁺ diffusion model of membrane potential",
+      "def": "As K⁺ diffuses out through a semipermeable membrane, impermeable anions are left behind, creating a charge separation that increases until equilibrium."
+    },
+    {
+      "tag": "Graded",
+      "term": "What sets a graded potential's spread",
+      "def": "The number of channels (e.g. Na⁺ channels) opened by the stimulus."
+    },
+    {
+      "tag": "Graded",
+      "term": "How local current arises",
+      "def": "Na⁺ ions entering at one point spread along the inner membrane surface, attracted by the excess negative charge nearby."
+    },
+    {
+      "tag": "Channels",
+      "term": "Gated channel state comparison",
+      "def": "“Closed but capable of opening” can still respond to a stimulus; “closed & incapable of opening” is temporarily inactivated."
+    },
+    {
+      "tag": "Organization",
+      "term": "Why SNS & ANS are both “efferent”",
+      "def": "Both carry motor (output) commands from the CNS to effectors, unlike the afferent (sensory) division."
+    },
+    {
+      "tag": "Organization",
+      "term": "Brain as CNS and higher-function center",
+      "def": "Beyond basic sensory/motor integration, the brain specifically houses intelligence, memory, learning, and emotion."
+    },
+    {
+      "tag": "Organization",
+      "term": "Receptors vs afferent division",
+      "def": "Complex sense organs contain the receptors; the afferent division is the pathway carrying their signals to the CNS."
+    },
+    {
+      "tag": "Glia",
+      "term": "Why glial cells are essential",
+      "def": "They protect, insulate, nourish, and maintain the environment around neurons, enabling proper neuronal signaling."
+    },
+    {
+      "tag": "Glia",
+      "term": "Astrocyte structural role vs microglial immune role",
+      "def": "Astrocytes maintain barriers/structure/ion balance; microglia clear debris and pathogens (CNS immune defense)."
+    },
+    {
+      "tag": "Anatomy",
+      "term": "Myelin segments and nodes",
+      "def": "Myelin sheath segments insulate the axon, with nodes of Ranvier as gaps between successive segments."
+    },
+    {
+      "tag": "Membrane",
+      "term": "Charge separation & resistance",
+      "def": "Without the membrane resisting free ion movement, + and - charges would mix and neutralize, and no potential difference could exist."
+    },
+    {
+      "tag": "Membrane",
+      "term": "How the microelectrode setup works",
+      "def": "One electrode is inserted inside the cell (cytosol); the other stays in the bathing medium outside; the potentiometer reads the voltage difference."
+    },
+    {
+      "tag": "Gradient",
+      "term": "Why Na⁺ has a strong inward driving force at rest",
+      "def": "Both its concentration gradient (higher outside) and the electrical gradient (negative inside attracting the positive ion) act inward together."
+    },
+    {
+      "tag": "Gradient",
+      "term": "Why K⁺ doesn't fully diffuse out at rest",
+      "def": "Its outward chemical gradient is balanced by electrical attraction to the negative interior and repulsion from the positive exterior."
+    },
+    {
+      "tag": "Channels",
+      "term": "“Excitable tissue” meaning",
+      "def": "A membrane capable of generating & conducting an action potential, due to its voltage-regulated channels."
+    },
+    {
+      "tag": "Pump",
+      "term": "Pump vs leak channel interaction",
+      "def": "The Na⁺/K⁺ pump continuously counteracts the passive leak channels' slow Na⁺ influx / K⁺ efflux, maintaining the resting potential."
+    },
+    {
+      "tag": "Graded",
+      "term": "Why more open Na⁺ channels intensify depolarization",
+      "def": "Each open channel allows additional Na⁺ influx, adding more positive charge and enlarging the local current and its spread."
+    },
+    {
+      "tag": "Graded",
+      "term": "Why graded potential decay happens",
+      "def": "It spreads passively (not regenerated) via local current, so magnitude decreases with distance from the stimulus site."
+    },
+    {
+      "tag": "Graded",
+      "term": "Depolarizing vs hyperpolarizing local current",
+      "def": "Both spread passively to adjacent membrane, but a depolarizing current moves Vm toward 0 mV (Na⁺ influx) while a hyperpolarizing current moves it more negative (K⁺ efflux)."
+    }
+  ],
+  "hard": [
+    {
+      "tag": "Integration",
+      "term": "Chemical + electrical gradients → resting potential",
+      "def": "Together they establish the negative resting membrane potential: K⁺'s greater permeability lets it leave faster than Na⁺ enters, and the Na⁺/K⁺ pump then reinforces the negativity electrogenically."
+    },
+    {
+      "tag": "Integration",
+      "term": "Blocking the Na⁺/K⁺ ATPase",
+      "def": "With leak channels still active, Na⁺ would keep leaking in and K⁺ out unopposed, so the resting potential would gradually depolarize over time."
+    },
+    {
+      "tag": "Integration",
+      "term": "Why the pump makes Vm more negative than diffusion alone",
+      "def": "Because it is electrogenic — removing 3 Na⁺ for every 2 K⁺ returned adds one net positive charge lost per cycle, beyond what passive K⁺ diffusion alone achieves."
+    },
+    {
+      "tag": "Integration",
+      "term": "Simple K⁺-diffusion equilibrium vs real resting potential",
+      "def": "The simple model reaches equilibrium from K⁺ diffusion and impermeable anions alone; the real resting potential also involves continuous Na⁺ leak and active Na⁺/K⁺ pumping."
+    },
+    {
+      "tag": "Integration",
+      "term": "Why Vm is more positive than the K⁺ equilibrium potential",
+      "def": "Continuous small Na⁺ leakage into the cytosol adds positive charge that the K⁺-only equilibrium model does not account for."
+    },
+    {
+      "tag": "Integration",
+      "term": "Na⁺ vs K⁺ electrochemical forces at rest",
+      "def": "Na⁺ entry is driven by both chemical and electrical gradients acting together; K⁺ exit is driven by its chemical gradient but opposed by the electrical gradient."
+    },
+    {
+      "tag": "Integration",
+      "term": "Effect of permanently non-opening voltage-gated Na⁺ channels",
+      "def": "Since their opening is the key step in generating an action potential, the tissue would lose the ability to generate one."
+    },
+    {
+      "tag": "Integration",
+      "term": "Why more open Na⁺ channels enlarge BOTH amplitude and spread",
+      "def": "More channels allow more Na⁺ entry (greater amplitude) and drive a larger local current that reaches farther along the membrane (wider spread)."
+    },
+    {
+      "tag": "Integration",
+      "term": "Depolarization vs hyperpolarization, mechanistically",
+      "def": "Both arise from ion movement and spread via local current, but differ in the channel/ion involved (Na⁺ in vs K⁺ out) and the resulting direction of the charge shift."
+    },
+    {
+      "tag": "Integration",
+      "term": "Simultaneous Na⁺ and K⁺ channel opening",
+      "def": "The net local Vm shift depends on relative permeability/number of open channels for each ion — whichever ion's flow dominates determines the net direction."
+    },
+    {
+      "tag": "Integration",
+      "term": "Amplitude vs distance in a graded potential",
+      "def": "Amplitude is proportional to the number of channels opened at the stimulus site, but decays with distance because the potential spreads passively via decaying local current, not active regeneration."
+    },
+    {
+      "tag": "Integration",
+      "term": "Oligodendrocytes vs Schwann cells and regeneration",
+      "def": "Schwann cells are explicitly credited with participating in PNS repair after injury; no equivalent repair role is attributed to oligodendrocytes in the CNS in this material."
+    },
+    {
+      "tag": "Integration",
+      "term": "Astrocyte scar formation — double-edged role",
+      "def": "Forming scar tissue after CNS injury can contain damage but may also physically or chemically limit axon regrowth through that region."
+    },
+    {
+      "tag": "Integration",
+      "term": "Satellite + Schwann cells supporting one PNS neuron",
+      "def": "Satellite cells regulate the chemical microenvironment around the cell body in ganglia while Schwann cells myelinate and support the axon itself."
+    },
+    {
+      "tag": "Integration",
+      "term": "Anatomical logic of channel placement",
+      "def": "Chemically-gated channels cluster at synapses (dendrite/soma) to detect neurotransmitters; voltage-gated channels dominate excitable regions for action potentials."
+    },
+    {
+      "tag": "Integration",
+      "term": "Classifying a Vm shift from -70 to -55 mV",
+      "def": "This is a depolarization, most plausibly from Na⁺ entering through opened (chemically- or voltage-) gated channels."
+    },
+    {
+      "tag": "Integration",
+      "term": "Classifying a Vm shift from -70 to -85 mV",
+      "def": "This is a hyperpolarization, most plausibly from K⁺ leaving through opened gated channels."
+    },
+    {
+      "tag": "Integration",
+      "term": "Why the CNS houses “higher functions”",
+      "def": "Beyond sensory/motor integration shared with the PNS pathway, the CNS specifically is described as the seat of intelligence, memory, learning, and emotion."
+    },
+    {
+      "tag": "Integration",
+      "term": "SNS voluntary/involuntary vs ANS involuntary-only",
+      "def": "SNS can act both voluntarily and involuntarily on skeletal muscle, while the ANS is described as purely automatic/involuntary on visceral effectors."
+    },
+    {
+      "tag": "Integration",
+      "term": "Same ANS division, opposite outcomes",
+      "def": "Sympathetic and parasympathetic are both efferent ANS divisions, yet produce opposite states (activity vs rest) via different downstream regulation."
+    },
+    {
+      "tag": "Integration",
+      "term": "Full afferent-to-efferent loop",
+      "def": "Receptor → afferent PNS → CNS integration → efferent PNS (somatic or autonomic) → effector (muscle or gland)."
+    },
+    {
+      "tag": "Integration",
+      "term": "Why channels/active transport are both necessary",
+      "def": "Because ions cannot cross the lipid bilayer freely, the cell needs both passive channel proteins and active (ATP-driven) transport mechanisms."
+    },
+    {
+      "tag": "Integration",
+      "term": "Functional value of 3 gated-channel states",
+      "def": "Having a “closed but capable” state keeps the channel poised to respond quickly, distinct from a temporarily inactivated “incapable” state."
+    },
+    {
+      "tag": "Integration",
+      "term": "Membrane resistance and potential collapse",
+      "def": "A highly permeable or damaged membrane would abolish the resting potential, since the resistance to free ion movement is what allows charge separation to persist."
+    },
+    {
+      "tag": "Integration",
+      "term": "Most important passive factor for negative Vm",
+      "def": "Greater membrane permeability to K⁺ than Na⁺ is the key passive factor producing net negativity inside at rest."
+    },
+    {
+      "tag": "Integration",
+      "term": "Raising ECF Na⁺ experimentally",
+      "def": "This increases the inward electrochemical driving force for Na⁺, which would be expected to increase the depolarization produced by a given Na⁺-channel-opening stimulus."
+    },
+    {
+      "tag": "Integration",
+      "term": "Why voltage-gated Na⁺ opening is the “key step”",
+      "def": "It can trigger a regenerative, self-reinforcing depolarization (unlike the passively-decaying graded potential), making it central to action potential generation."
+    },
+    {
+      "tag": "Integration",
+      "term": "Leak channels vs gated channels, by role",
+      "def": "Leak channels continuously shape the resting potential; gated channels are recruited transiently to produce graded potentials or trigger action potentials."
+    },
+    {
+      "tag": "Integration",
+      "term": "Consequence of ATP unavailability",
+      "def": "The Na⁺/K⁺ pump could no longer counteract leak channels, so ionic gradients — and therefore the resting potential — would gradually dissipate."
+    },
+    {
+      "tag": "Integration",
+      "term": "Microglia + astrocytes after CNS injury",
+      "def": "Microglia clear debris/pathogens while astrocytes rebuild structural containment (scar tissue) — together, cleanup and structural repair."
+    },
+    {
+      "tag": "Integration",
+      "term": "Why graded potentials are “graded” not all-or-none",
+      "def": "Amplitude and spread scale continuously with the number of channels opened, which itself scales with stimulus strength."
+    },
+    {
+      "tag": "Integration",
+      "term": "Why mechanoreceptors use mechanically-gated channels",
+      "def": "Their trigger — physical distortion of the membrane — directly matches touch, pressure, and vibration stimuli, unlike chemical or voltage triggers."
+    },
+    {
+      "tag": "Integration",
+      "term": "Ependymal + astrocyte contribution to CNS homeostasis",
+      "def": "Ependymal cells regulate the CSF-filled compartments while astrocytes regulate the blood-brain interface — together protecting the CNS internal environment."
+    },
+    {
+      "tag": "Integration",
+      "term": "Consequence of failed ACh-receptor opening at the NMJ",
+      "def": "Synaptic transmission at the neuromuscular junction would fail, since the chemically-gated response to ACh could not occur."
+    },
+    {
+      "tag": "Integration",
+      "term": "Why hyperpolarization moves Vm from threshold",
+      "def": "It shifts Vm further from 0 mV, in the opposite direction needed to reach the depolarization required to trigger a regenerative response."
+    },
+    {
+      "tag": "Integration",
+      "term": "Electrical vs chemical gradient, Na⁺ vs K⁺",
+      "def": "For Na⁺ both gradients point inward (reinforcing); for K⁺ the chemical gradient points outward while the electrical gradient points inward (opposing) — two different relationships."
+    },
+    {
+      "tag": "Integration",
+      "term": "Distinguishing channel types experimentally",
+      "def": "Apply a specific ligand to test chemical gating, change membrane voltage to test voltage gating, or apply physical pressure/stretch to test mechanical gating."
+    },
+    {
+      "tag": "Integration",
+      "term": "Why Vm is called “a combination of passive and active forces”",
+      "def": "Because it results from passive ion movement through leak channels together with active, ATP-dependent pumping by the Na⁺/K⁺ ATPase — neither alone is sufficient."
+    },
+    {
+      "tag": "Integration",
+      "term": "Tracing a spreading, decaying potential change",
+      "def": "Channel opening at the stimulus site → local ion flow shifts Vm there → local current spreads the change passively to adjacent membrane → the effect weakens with increasing distance."
+    },
+    {
+      "tag": "Integration",
+      "term": "Full synthesis: from ion composition to stable -70 mV",
+      "def": "Unequal ICF/ECF ion distribution sets up chemical & electrical gradients → leak channels allow slow ion movement down these gradients → the Na⁺/K⁺ ATPase actively restores the gradients using ATP, yielding a stable, dynamically maintained resting potential."
+    }
+  ]
+};
+let fcLevel = 'easy';
+let flashData = flashDataByLevel[fcLevel];
+let fcOrder = flashData.map((_,i)=>i);
+let fcIndex = 0;
+const fcCard = document.getElementById('fcCard');
+function shuffleArr(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]] = [a[j],a[i]];
+  }
+  return a;
+}
+function renderFlash(){
+  const card = flashData[fcOrder[fcIndex]];
+  fcCard.classList.remove('flipped');
+  document.getElementById('fcTagFront').textContent = card.tag;
+  document.getElementById('fcTagBack').textContent = card.tag;
+  document.getElementById('fcTerm').textContent = card.term;
+  document.getElementById('fcDef').textContent = card.def;
+  document.getElementById('fcCount').textContent = (fcIndex+1)+' / '+flashData.length;
+  document.getElementById('fcTrackFill').style.width = (((fcIndex+1)/flashData.length)*100)+'%';
+}
+function setFcLevel(level){
+  fcLevel = level;
+  flashData = flashDataByLevel[level];
+  fcOrder = flashData.map((_,i)=>i);
+  fcIndex = 0;
+  document.querySelectorAll('#fcLevelTabs .gate-tab').forEach(b=>b.classList.toggle('active', b.dataset.level===level));
+  renderFlash();
+}
+document.querySelectorAll('#fcLevelTabs .gate-tab').forEach(btn=>{
+  btn.addEventListener('click', ()=>setFcLevel(btn.dataset.level));
+});
+fcCard.addEventListener('click', ()=>fcCard.classList.toggle('flipped'));
+document.getElementById('fcNext').addEventListener('click', ()=>{
+  fcIndex = (fcIndex+1) % flashData.length;
+  renderFlash();
+});
+document.getElementById('fcPrev').addEventListener('click', ()=>{
+  fcIndex = (fcIndex-1+flashData.length) % flashData.length;
+  renderFlash();
+});
+document.getElementById('fcShuffle').addEventListener('click', ()=>{
+  fcOrder = shuffleArr(fcOrder);
+  fcIndex = 0;
+  renderFlash();
+});
+renderFlash();
+
+/* ============================================================
+   QUIZ BANK
+============================================================ */
+const quizDataByLevel = {
+  "easy": [
+    {
+      "q": "What is the basic functional unit of the nervous system?",
+      "correct": "Neuron",
+      "wrong": [
+        "Astrocyte",
+        "Schwann cell",
+        "Microglia"
+      ]
+    },
+    {
+      "q": "Which cells support and protect neurons?",
+      "correct": "Neuroglia (glial cells)",
+      "wrong": [
+        "Osteocytes",
+        "Erythrocytes",
+        "Fibroblasts"
+      ]
+    },
+    {
+      "q": "The CNS consists of:",
+      "correct": "Brain and spinal cord",
+      "wrong": [
+        "Brain and nerves",
+        "Spinal cord and ganglia",
+        "Nerves and receptors"
+      ]
+    },
+    {
+      "q": "Which of these belongs to the PNS, not the CNS?",
+      "correct": "Peripheral nerves",
+      "wrong": [
+        "Brain",
+        "Spinal cord",
+        "Cerebrospinal fluid pathways of the cord"
+      ]
+    },
+    {
+      "q": "The PNS includes:",
+      "correct": "All neural tissue outside the CNS",
+      "wrong": [
+        "Only the brain",
+        "Only the spinal cord",
+        "Only sensory receptors"
+      ]
+    },
+    {
+      "q": "The afferent division of the PNS:",
+      "correct": "Brings sensory information to the CNS",
+      "wrong": [
+        "Carries motor commands to muscles",
+        "Regulates heart rate directly",
+        "Produces cerebrospinal fluid"
+      ]
+    },
+    {
+      "q": "The efferent division of the PNS:",
+      "correct": "Carries motor commands from the CNS to effectors",
+      "wrong": [
+        "Brings sensory info to the CNS",
+        "Lines the brain ventricles",
+        "Regulates the blood-brain barrier"
+      ]
+    },
+    {
+      "q": "The somatic nervous system controls:",
+      "correct": "Skeletal muscle contractions",
+      "wrong": [
+        "Smooth muscle only",
+        "Cardiac muscle only",
+        "Glandular secretion"
+      ]
+    },
+    {
+      "q": "The autonomic nervous system (ANS) is also called the:",
+      "correct": "Visceral motor system",
+      "wrong": [
+        "Somatic motor system",
+        "Special sensory system",
+        "General sensory system"
+      ]
+    },
+    {
+      "q": "The two divisions of the ANS are:",
+      "correct": "Sympathetic and parasympathetic",
+      "wrong": [
+        "Somatic and visceral",
+        "Afferent and efferent",
+        "Central and peripheral"
+      ]
+    },
+    {
+      "q": "Which ANS division mobilizes the body for \"fight or flight\"?",
+      "correct": "Sympathetic",
+      "wrong": [
+        "Parasympathetic",
+        "Somatic",
+        "Afferent"
+      ]
+    },
+    {
+      "q": "Which ANS division promotes \"housekeeping\" functions during rest?",
+      "correct": "Parasympathetic",
+      "wrong": [
+        "Sympathetic",
+        "Somatic",
+        "Afferent"
+      ]
+    },
+    {
+      "q": "Which glial cell myelinates axons in the CNS?",
+      "correct": "Oligodendrocyte",
+      "wrong": [
+        "Schwann cell",
+        "Astrocyte",
+        "Microglia"
+      ]
+    },
+    {
+      "q": "Which glial cell myelinates axons in the PNS?",
+      "correct": "Schwann cell",
+      "wrong": [
+        "Oligodendrocyte",
+        "Astrocyte",
+        "Ependymal cell"
+      ]
+    },
+    {
+      "q": "Which glial cells help maintain the blood-brain barrier?",
+      "correct": "Astrocytes",
+      "wrong": [
+        "Microglia",
+        "Ependymal cells",
+        "Satellite cells"
+      ]
+    },
+    {
+      "q": "Which glial cells act as phagocytes, removing debris and pathogens?",
+      "correct": "Microglia",
+      "wrong": [
+        "Astrocytes",
+        "Oligodendrocytes",
+        "Schwann cells"
+      ]
+    },
+    {
+      "q": "Which cells line the brain ventricles and the spinal cord’s central canal?",
+      "correct": "Ependymal cells",
+      "wrong": [
+        "Satellite cells",
+        "Microglia",
+        "Astrocytes"
+      ]
+    },
+    {
+      "q": "Which glial cells surround neuron cell bodies in peripheral ganglia?",
+      "correct": "Satellite cells",
+      "wrong": [
+        "Oligodendrocytes",
+        "Astrocytes",
+        "Ependymal cells"
+      ]
+    },
+    {
+      "q": "The gap between adjacent Schwann cells along an axon is the:",
+      "correct": "Node of Ranvier",
+      "wrong": [
+        "Synapse",
+        "Axon hillock",
+        "Dendrite"
+      ]
+    },
+    {
+      "q": "The extracellular fluid (ECF) is high in:",
+      "correct": "Na⁺ and Cl⁻",
+      "wrong": [
+        "K⁺ and negatively charged proteins",
+        "Ca²⁺ only",
+        "Mg²⁺ only"
+      ]
+    },
+    {
+      "q": "The intracellular fluid (ICF) is high in:",
+      "correct": "K⁺ and negatively charged proteins",
+      "wrong": [
+        "Na⁺ and Cl⁻",
+        "Cl⁻ only",
+        "Glucose only"
+      ]
+    },
+    {
+      "q": "The normal resting membrane potential of a neuron is approximately:",
+      "correct": "-70 mV",
+      "wrong": [
+        "0 mV",
+        "+40 mV",
+        "-150 mV"
+      ]
+    },
+    {
+      "q": "Ions cross the cell membrane primarily through:",
+      "correct": "Membrane channels",
+      "wrong": [
+        "Direct diffusion through the lipid bilayer",
+        "Osmosis alone",
+        "The nucleus"
+      ]
+    },
+    {
+      "q": "Passive (leak) channels are:",
+      "correct": "Always open, though permeability can shift with local conditions",
+      "wrong": [
+        "Always closed",
+        "Only open with a voltage change",
+        "Found only in muscle"
+      ]
+    },
+    {
+      "q": "Chemically regulated (ligand-gated) channels open in response to:",
+      "correct": "Binding of a specific chemical (e.g. ACh)",
+      "wrong": [
+        "Voltage changes",
+        "Mechanical pressure",
+        "Temperature"
+      ]
+    },
+    {
+      "q": "Voltage-regulated channels open and close in response to:",
+      "correct": "Changes in transmembrane potential",
+      "wrong": [
+        "Chemical binding",
+        "Mechanical distortion",
+        "Osmotic pressure"
+      ]
+    },
+    {
+      "q": "Mechanically regulated channels respond to:",
+      "correct": "Physical distortion of the membrane",
+      "wrong": [
+        "Chemical binding",
+        "Voltage change",
+        "Temperature change"
+      ]
+    },
+    {
+      "q": "The sodium-potassium pump exchanges:",
+      "correct": "3 Na⁺ out for 2 K⁺ in",
+      "wrong": [
+        "2 Na⁺ out for 3 K⁺ in",
+        "Equal Na⁺ and K⁺",
+        "1 Na⁺ out for 1 K⁺ in"
+      ]
+    },
+    {
+      "q": "The Na⁺/K⁺ ATPase pump contributes to the:",
+      "correct": "Negativity of the transmembrane potential",
+      "wrong": [
+        "Positivity of the transmembrane potential",
+        "Depolarization at rest",
+        "Loss of the resting potential"
+      ]
+    },
+    {
+      "q": "A shift of the transmembrane potential toward 0 mV or above is called:",
+      "correct": "Depolarization",
+      "wrong": [
+        "Hyperpolarization",
+        "Repolarization only",
+        "Equilibrium"
+      ]
+    },
+    {
+      "q": "A shift of the resting potential to a more negative value (e.g. -80 mV) is called:",
+      "correct": "Hyperpolarization",
+      "wrong": [
+        "Depolarization",
+        "Threshold",
+        "Refractory period"
+      ]
+    },
+    {
+      "q": "Graded potentials are also known as:",
+      "correct": "Local potentials",
+      "wrong": [
+        "Action potentials",
+        "Equilibrium potentials",
+        "Resting potentials"
+      ]
+    },
+    {
+      "q": "The effect of a graded potential, as it moves away from the stimulus site, typically:",
+      "correct": "Decreases with distance",
+      "wrong": [
+        "Increases with distance",
+        "Stays constant",
+        "Reverses sign automatically"
+      ]
+    },
+    {
+      "q": "Movement of ions along the inner/outer membrane surface that spreads a graded potential’s effect is called:",
+      "correct": "Local current",
+      "wrong": [
+        "Action current",
+        "Resting current",
+        "Synaptic current"
+      ]
+    },
+    {
+      "q": "Opening of voltage-regulated Na⁺ channels is the key step in generating a(n):",
+      "correct": "Action potential",
+      "wrong": [
+        "Graded potential only",
+        "Hyperpolarization only",
+        "Resting potential"
+      ]
+    },
+    {
+      "q": "The cell membrane is described as:",
+      "correct": "Semi-permeable, allowing certain ions to cross at a controlled rate",
+      "wrong": [
+        "Completely impermeable to all substances",
+        "Freely permeable to all ions",
+        "Permeable only to proteins"
+      ]
+    },
+    {
+      "q": "Passive transport across the membrane includes:",
+      "correct": "Diffusion and facilitated diffusion",
+      "wrong": [
+        "Only active transport",
+        "The sodium-potassium pump only",
+        "Phagocytosis"
+      ]
+    },
+    {
+      "q": "Active transport requires:",
+      "correct": "ATP",
+      "wrong": [
+        "Only a concentration gradient",
+        "No energy input",
+        "Only a channel protein"
+      ]
+    },
+    {
+      "q": "A channel protein that is always open is called a:",
+      "correct": "Channel protein (leak channel)",
+      "wrong": [
+        "Gated channel protein",
+        "Receptor protein",
+        "Glycoprotein"
+      ]
+    },
+    {
+      "q": "A membrane channel protein that can be in an open or closed position is called a:",
+      "correct": "Gated channel protein",
+      "wrong": [
+        "Channel protein (always open)",
+        "Cholesterol",
+        "Carbohydrate group"
+      ]
+    },
+    {
+      "q": "The potential difference across a cell membrane is measured in:",
+      "correct": "Volts or millivolts (mV)",
+      "wrong": [
+        "Amperes",
+        "Ohms",
+        "Joules"
+      ]
+    },
+    {
+      "q": "To measure the transmembrane potential experimentally, researchers use:",
+      "correct": "A microelectrode inside the cell and a reference electrode in the bathing medium, connected to a potentiometer",
+      "wrong": [
+        "A thermometer",
+        "An ammeter placed outside the cell only",
+        "A pH meter"
+      ]
+    },
+    {
+      "q": "A gated ion channel can exist in how many functional states?",
+      "correct": "Three",
+      "wrong": [
+        "One",
+        "Two",
+        "Four"
+      ]
+    },
+    {
+      "q": "The three states of a gated channel are:",
+      "correct": "Closed (capable of opening), open (activated), and closed (incapable of opening)",
+      "wrong": [
+        "Only open and closed",
+        "Fast and slow",
+        "Active and passive only"
+      ]
+    },
+    {
+      "q": "Mechanically regulated channels open in response to:",
+      "correct": "Physical distortion of the membrane",
+      "wrong": [
+        "Chemical binding",
+        "Voltage changes",
+        "ATP hydrolysis"
+      ]
+    },
+    {
+      "q": "Sensory receptors for touch, pressure, and vibration rely mainly on:",
+      "correct": "Mechanically regulated channels",
+      "wrong": [
+        "Chemically regulated channels",
+        "Voltage regulated channels",
+        "Leak channels only"
+      ]
+    },
+    {
+      "q": "The two types of transmembrane potential changes described are:",
+      "correct": "Graded potentials and action potentials",
+      "wrong": [
+        "Resting and active potentials only",
+        "Fast and slow potentials",
+        "Chemical and physical potentials"
+      ]
+    },
+    {
+      "q": "A graded potential is also referred to as a:",
+      "correct": "Local potential",
+      "wrong": [
+        "Global potential",
+        "Resting potential",
+        "Threshold potential"
+      ]
+    },
+    {
+      "q": "In the example given, hyperpolarization shifts the resting potential to approximately:",
+      "correct": "-80 mV",
+      "wrong": [
+        "-55 mV",
+        "0 mV",
+        "+30 mV"
+      ]
+    },
+    {
+      "q": "Which ion movement produces hyperpolarization in the example given?",
+      "correct": "K⁺ leaving the cell",
+      "wrong": [
+        "Na⁺ entering the cell",
+        "Cl⁻ leaving the cell",
+        "Ca²⁺ entering the cell"
+      ]
+    },
+    {
+      "q": "Neuroglia found within the peripheral nervous system include:",
+      "correct": "Satellite cells and Schwann cells",
+      "wrong": [
+        "Astrocytes and microglia",
+        "Oligodendrocytes and ependymal cells",
+        "Only microglia"
+      ]
+    },
+    {
+      "q": "Neuroglia found within the central nervous system include:",
+      "correct": "Oligodendrocytes, astrocytes, microglia, and ependymal cells",
+      "wrong": [
+        "Only Schwann cells",
+        "Only satellite cells",
+        "Satellite cells and microglia only"
+      ]
+    },
+    {
+      "q": "The axon hillock is:",
+      "correct": "The region of the soma where the axon originates",
+      "wrong": [
+        "The tip of the dendrite",
+        "The synapse between two neurons",
+        "The myelin gap along the axon"
+      ]
+    },
+    {
+      "q": "The end branches of an axon that form synaptic connections are called:",
+      "correct": "Axon terminals (terminal buttons)",
+      "wrong": [
+        "Dendrites",
+        "Nodes of Ranvier",
+        "Axon hillocks"
+      ]
+    },
+    {
+      "q": "Satellite cells specifically regulate:",
+      "correct": "O₂, CO₂, nutrient, and neurotransmitter levels around neurons in ganglia",
+      "wrong": [
+        "Blood glucose levels systemically",
+        "Heart rate",
+        "Bone density"
+      ]
+    },
+    {
+      "q": "Astrocytes contribute to the formation of scar tissue:",
+      "correct": "After CNS injury",
+      "wrong": [
+        "Only during embryonic development",
+        "In the PNS exclusively",
+        "Only inside blood vessels"
+      ]
+    },
+    {
+      "q": "The characteristic of a graded potential regarding distance is that its effect:",
+      "correct": "Decreases with distance from the stimulus site",
+      "wrong": [
+        "Increases with distance",
+        "Remains constant regardless of distance",
+        "Reverses direction with distance"
+      ]
+    },
+    {
+      "q": "According to the source, a graded potential’s effect spreads:",
+      "correct": "Passively, due to local currents",
+      "wrong": [
+        "Actively, using ATP at every point",
+        "Only through the bloodstream",
+        "Through hormonal signals"
+      ]
+    },
+    {
+      "q": "The strength of a stimulus and the resulting graded potential are related such that:",
+      "correct": "A stronger stimulus produces a greater change in potential and a larger area affected",
+      "wrong": [
+        "Stimulus strength has no effect on the potential change",
+        "A stronger stimulus always produces hyperpolarization",
+        "A stronger stimulus always produces the same fixed change"
+      ]
+    },
+    {
+      "q": "Which glial cell type is most directly responsible for immune surveillance and clearing pathogens in the CNS?",
+      "correct": "Microglia",
+      "wrong": [
+        "Astrocytes",
+        "Oligodendrocytes",
+        "Ependymal cells"
+      ]
+    }
+  ],
+  "medium": [
+    {
+      "q": "Which best explains why the resting membrane potential is negative inside the cell?",
+      "correct": "The membrane is more permeable to K⁺ than Na⁺, so K⁺ leaves the cell faster than Na⁺ enters",
+      "wrong": [
+        "Cl⁻ is actively pumped into the cell",
+        "The membrane is equally permeable to all ions",
+        "Proteins are actively exported from the cell"
+      ]
+    },
+    {
+      "q": "At rest, the net driving force on Na⁺ is directed:",
+      "correct": "Into the cell, because both the chemical and electrical gradients favor Na⁺ entry",
+      "wrong": [
+        "Out of the cell, because both gradients favor Na⁺ exit",
+        "Into the cell only because of the chemical gradient, opposed by the electrical gradient",
+        "There is no net driving force on Na⁺ at rest"
+      ]
+    },
+    {
+      "q": "At rest, the outward chemical gradient for K⁺ is opposed by:",
+      "correct": "Attraction to negative charge inside the cell and repulsion from positive charge outside",
+      "wrong": [
+        "An impermeable membrane to K⁺",
+        "Active transport pumping K⁺ inward only",
+        "The presence of intracellular Cl⁻"
+      ]
+    },
+    {
+      "q": "Why is the Na⁺/K⁺ ATPase considered \"electrogenic\"?",
+      "correct": "Because it moves unequal numbers of charges (3 Na⁺ out for 2 K⁺ in), directly contributing to membrane negativity",
+      "wrong": [
+        "Because it uses no ATP",
+        "Because it moves equal numbers of Na⁺ and K⁺",
+        "Because it only transports Cl⁻"
+      ]
+    },
+    {
+      "q": "The main functional difference between a leak channel and a gated channel is that:",
+      "correct": "Leak channels are always open, while gated channels open/close in response to specific stimuli",
+      "wrong": [
+        "Leak channels only transport K⁺, gated channels only transport Na⁺",
+        "Gated channels are always open, leak channels are never open",
+        "There is no functional difference"
+      ]
+    },
+    {
+      "q": "Which best distinguishes chemically-, voltage-, and mechanically-gated channels?",
+      "correct": "They are triggered by a specific chemical, by a change in membrane potential, or by physical distortion, respectively",
+      "wrong": [
+        "They all respond only to voltage changes",
+        "They differ only in the ion they transport",
+        "They differ only in their location on the neuron, not their trigger"
+      ]
+    },
+    {
+      "q": "Why are chemically regulated channels concentrated at the dendrite and soma?",
+      "correct": "Because these regions form synapses, where neurotransmitters bind to trigger channel opening",
+      "wrong": [
+        "Because these regions generate action potentials",
+        "Because these regions lack any ion channels",
+        "Because these regions are myelinated"
+      ]
+    },
+    {
+      "q": "Why are voltage-regulated channels particularly important in excitable tissue?",
+      "correct": "Because their opening and closing in response to membrane potential changes underlies the generation and conduction of action potentials",
+      "wrong": [
+        "Because they are the only channels present in neurons",
+        "Because they only function during hyperpolarization",
+        "Because they require ATP to operate"
+      ]
+    },
+    {
+      "q": "A stimulus opens chemically-gated Na⁺ channels at a small patch of membrane. What immediately follows?",
+      "correct": "Na⁺ enters the cell, shifting the local transmembrane potential toward 0 mV (depolarization)",
+      "wrong": [
+        "K⁺ enters the cell, causing hyperpolarization",
+        "The membrane potential becomes more negative",
+        "No change occurs unless voltage-gated channels open first"
+      ]
+    },
+    {
+      "q": "What determines both the size and spatial spread of a graded potential?",
+      "correct": "The number of ion channels opened by the stimulus",
+      "wrong": [
+        "The resting membrane potential alone",
+        "The size of the neuron’s nucleus",
+        "The type of neurotransmitter released, regardless of channel number"
+      ]
+    },
+    {
+      "q": "How does local current relate to graded potentials?",
+      "correct": "It is the passive movement of ions along the inner/outer membrane surface that spreads the graded potential’s effect to nearby membrane",
+      "wrong": [
+        "It is an active, ATP-dependent process identical to the Na⁺/K⁺ pump",
+        "It only occurs during hyperpolarization, never depolarization",
+        "It has no relationship to graded potentials"
+      ]
+    },
+    {
+      "q": "Which statement correctly relates stimulus strength to a graded potential?",
+      "correct": "A stronger stimulus opens more channels, producing a larger change in potential and a wider affected area",
+      "wrong": [
+        "Stimulus strength only affects the duration, never the amplitude, of the potential",
+        "A stronger stimulus always converts the graded potential into a resting potential",
+        "Graded potentials are unaffected by stimulus strength (all-or-none)"
+      ]
+    },
+    {
+      "q": "Both the somatic and autonomic nervous systems are subdivisions of the:",
+      "correct": "Efferent division of the PNS",
+      "wrong": [
+        "Afferent division of the PNS",
+        "Central nervous system directly",
+        "Sensory receptor pathway"
+      ]
+    },
+    {
+      "q": "What is the key functional distinction between the somatic and autonomic nervous systems?",
+      "correct": "The somatic system controls skeletal muscle (voluntary or involuntary), while the autonomic system involuntarily regulates smooth muscle, cardiac muscle, and glands",
+      "wrong": [
+        "The somatic system is always involuntary and the autonomic system is always voluntary",
+        "Both systems control identical target tissues",
+        "The autonomic system only carries sensory information"
+      ]
+    },
+    {
+      "q": "The sympathetic and parasympathetic divisions differ primarily in that:",
+      "correct": "Sympathetic mobilizes the body for activity, while parasympathetic conserves energy and supports rest",
+      "wrong": [
+        "Sympathetic is sensory and parasympathetic is motor",
+        "Sympathetic only affects skeletal muscle",
+        "Parasympathetic only functions during emergencies"
+      ]
+    },
+    {
+      "q": "A signal traveling from a skin receptor to the spinal cord travels through the:",
+      "correct": "Afferent division of the PNS",
+      "wrong": [
+        "Efferent division of the PNS",
+        "Sympathetic division only",
+        "Somatic motor pathway"
+      ]
+    },
+    {
+      "q": "Which best describes why the brain is central to \"higher functions\" according to the source?",
+      "correct": "Because, beyond integrating sensory/motor data, it specifically serves as the center for intelligence, memory, learning, and emotion",
+      "wrong": [
+        "Because it lacks any role in sensory processing",
+        "Because it is part of the PNS, not the CNS",
+        "Because only the spinal cord processes sensory data"
+      ]
+    },
+    {
+      "q": "Comparing oligodendrocytes and Schwann cells, both share the function of:",
+      "correct": "Myelinating axons (in the CNS and PNS respectively)",
+      "wrong": [
+        "Producing cerebrospinal fluid",
+        "Forming the blood-brain barrier",
+        "Acting as phagocytic immune cells"
+      ]
+    },
+    {
+      "q": "Which best distinguishes astrocyte function from microglial function?",
+      "correct": "Astrocytes provide structural/metabolic support and maintain the blood-brain barrier, while microglia perform phagocytosis of debris and pathogens",
+      "wrong": [
+        "Astrocytes are phagocytic and microglia maintain the blood-brain barrier",
+        "Both perform identical functions",
+        "Astrocytes are found only in the PNS"
+      ]
+    },
+    {
+      "q": "Ependymal cells are functionally linked to:",
+      "correct": "Production, circulation, and monitoring of cerebrospinal fluid",
+      "wrong": [
+        "Myelination of CNS axons",
+        "Phagocytosis of pathogens",
+        "Regulation of neurotransmitter levels in ganglia"
+      ]
+    },
+    {
+      "q": "Why can ions not simply diffuse freely through the lipid bilayer?",
+      "correct": "Because the lipid bilayer is not permeable to charged ions, so they require channel proteins or active transport",
+      "wrong": [
+        "Because ions are too large to exist in solution",
+        "Because the lipid bilayer actively repels only potassium",
+        "Because ions have no charge"
+      ]
+    },
+    {
+      "q": "The passive and active forces acting on the membrane, taken together:",
+      "correct": "Do not by themselves ensure equal distribution of positive and negative charges, resulting in a potential difference",
+      "wrong": [
+        "Always result in exactly equal distribution of charges",
+        "Eliminate the need for a resting potential",
+        "Only apply to Cl⁻ ions"
+      ]
+    },
+    {
+      "q": "What physically constitutes the \"resistance\" that allows a potential difference to exist across the membrane?",
+      "correct": "The cell membrane itself, which separates positive and negative charges and resists free ion movement",
+      "wrong": [
+        "The cytoskeleton alone",
+        "The presence of glucose in the ECF",
+        "The nucleus of the cell"
+      ]
+    },
+    {
+      "q": "In the simplified potassium-diffusion model, the membrane potential increases until:",
+      "correct": "Equilibrium is reached between the concentration gradient and the electrical gradient",
+      "wrong": [
+        "All K⁺ has left the cell",
+        "All anions have crossed the membrane",
+        "ATP is completely depleted"
+      ]
+    },
+    {
+      "q": "Why does a small, continuous leak of Na⁺ into the cell affect K⁺ movement at rest?",
+      "correct": "It makes the membrane potential slightly more positive, weakening the electrical restraint that normally limits K⁺ outward movement",
+      "wrong": [
+        "It has no effect on K⁺ channels",
+        "It directly closes all K⁺ channels",
+        "It causes K⁺ to move inward instead of outward"
+      ]
+    },
+    {
+      "q": "The role of the Na⁺/K⁺ pump relative to the leak channels is to:",
+      "correct": "Continuously counteract the slow Na⁺ influx and K⁺ efflux caused by leak channels",
+      "wrong": [
+        "Increase the leak of Na⁺ and K⁺",
+        "Replace the function of gated channels entirely",
+        "Operate only during an action potential"
+      ]
+    },
+    {
+      "q": "A neuron’s resting potential is slightly more positive than the equilibrium potential for K⁺ alone because:",
+      "correct": "Some Na⁺ continuously leaks into the cytosol",
+      "wrong": [
+        "K⁺ channels are completely closed at rest",
+        "Cl⁻ is absent from the ECF",
+        "The Na⁺/K⁺ pump is inactive at rest"
+      ]
+    },
+    {
+      "q": "Which correctly pairs a channel type with its physiological example?",
+      "correct": "Chemically regulated channel — ACh receptor at the neuromuscular junction",
+      "wrong": [
+        "Mechanically regulated channel — ACh receptor at the neuromuscular junction",
+        "Voltage regulated channel — touch receptor in the skin",
+        "Leak channel — receptor that only opens with neurotransmitter binding"
+      ]
+    },
+    {
+      "q": "Opening of voltage-regulated Na⁺ channels is significant because it is described as:",
+      "correct": "The key step in generating an action potential",
+      "wrong": [
+        "Irrelevant to action potential generation",
+        "Only involved in hyperpolarization",
+        "A step unique to skeletal muscle only"
+      ]
+    },
+    {
+      "q": "Which combination would be expected to cause the largest depolarizing graded potential?",
+      "correct": "A strong stimulus opening a large number of chemically-gated Na⁺ channels",
+      "wrong": [
+        "A weak stimulus opening a small number of K⁺ channels",
+        "Any stimulus opening only leak channels",
+        "A stimulus that closes all Na⁺ channels"
+      ]
+    },
+    {
+      "q": "Which of the following would most likely cause hyperpolarization rather than depolarization?",
+      "correct": "Opening of K⁺ channels, allowing K⁺ to leave the cell",
+      "wrong": [
+        "Opening of Na⁺ channels, allowing Na⁺ to enter the cell",
+        "Closing of all ion channels simultaneously",
+        "Increased ATP production by the cell"
+      ]
+    },
+    {
+      "q": "The statement \"ions cross the cell membrane through membrane channels\" implies that:",
+      "correct": "Membrane channels are the primary route for ion movement across an otherwise ion-impermeable lipid bilayer",
+      "wrong": [
+        "Ions can bypass the membrane entirely through osmosis",
+        "The lipid bilayer is the primary route for ion movement",
+        "Membrane channels are irrelevant to ion movement"
+      ]
+    },
+    {
+      "q": "Which best explains why the CNS is protected structurally by connective tissue and blood vessels along with neural tissue?",
+      "correct": "Because the CNS organs (brain and spinal cord) are complex organs requiring physical protection and support in addition to neural function",
+      "wrong": [
+        "Because neural tissue alone provides all needed protection",
+        "Because connective tissue replaces the need for neurons",
+        "Because blood vessels are not part of CNS organs"
+      ]
+    },
+    {
+      "q": "Which statement about the PNS afferent and efferent divisions is correct?",
+      "correct": "Afferent carries information to the CNS while efferent carries commands away from the CNS",
+      "wrong": [
+        "Both divisions carry information exclusively to the CNS",
+        "Both divisions carry information exclusively away from the CNS",
+        "Afferent and efferent are two names for the same pathway"
+      ]
+    },
+    {
+      "q": "Which is the best description of how satellite cells and Schwann cells together support PNS neurons?",
+      "correct": "Satellite cells regulate the microenvironment around cell bodies in ganglia, while Schwann cells myelinate and support axons",
+      "wrong": [
+        "Both cell types exclusively myelinate axons",
+        "Satellite cells myelinate axons while Schwann cells regulate ganglia",
+        "Neither cell type interacts directly with neurons"
+      ]
+    },
+    {
+      "q": "Which correctly reflects the source’s description of graded potentials as \"local\"?",
+      "correct": "Their effect is strongest at the stimulus site and diminishes with distance, unlike a self-propagating action potential",
+      "wrong": [
+        "They spread with equal strength throughout the entire neuron",
+        "They only occur in the CNS, never the PNS",
+        "They are unaffected by the number of channels opened"
+      ]
+    },
+    {
+      "q": "Comparing the \"chemical gradient\" and \"electrical gradient\" concepts, which is correct?",
+      "correct": "The chemical gradient reflects concentration differences, while the electrical gradient reflects the charge difference across the membrane; together they form the electrochemical gradient",
+      "wrong": [
+        "They are identical concepts with different names",
+        "The electrical gradient depends only on ion concentration",
+        "The chemical gradient depends only on membrane voltage"
+      ]
+    },
+    {
+      "q": "Which best explains why potassium’s permeability being greater than sodium’s is important for the resting potential?",
+      "correct": "It means K⁺ efflux dominates over Na⁺ influx at rest, making the cell interior net negative",
+      "wrong": [
+        "It means Na⁺ influx dominates, making the cell interior net positive",
+        "It has no impact on the resting potential’s sign",
+        "It means the membrane is impermeable to both ions"
+      ]
+    },
+    {
+      "q": "How would blocking mechanically-gated channels most directly affect a person?",
+      "correct": "Impaired sensation of touch, pressure, and vibration",
+      "wrong": [
+        "Impaired vision only",
+        "Complete loss of the resting membrane potential",
+        "Immediate action potential generation throughout the body"
+      ]
+    },
+    {
+      "q": "Which is the best summary of what determines a graded potential’s classification as depolarizing versus hyperpolarizing?",
+      "correct": "Which type of channel (and therefore which ion) is opened by the stimulus",
+      "wrong": [
+        "The distance from the cell body, regardless of channel type",
+        "The size of the neuron alone",
+        "The time of day"
+      ]
+    },
+    {
+      "q": "Which statement best relates ECF/ICF ionic composition to channel function?",
+      "correct": "Because Na⁺ is concentrated in the ECF and K⁺ in the ICF, opening Na⁺ or K⁺ channels produces predictable directional ion flow and potential change",
+      "wrong": [
+        "Ionic composition has no bearing on which direction ions flow through channels",
+        "Na⁺ and K⁺ are equally concentrated in ECF and ICF, so channel opening has an unpredictable effect",
+        "Channels only open when ionic composition is equal on both sides"
+      ]
+    },
+    {
+      "q": "A microelectrode inserted into a resting neuron would read approximately:",
+      "correct": "-70 mV relative to the reference electrode outside the cell",
+      "wrong": [
+        "+70 mV relative to the reference electrode",
+        "0 mV, since the cell is at equilibrium with no charge difference",
+        "-200 mV, reflecting complete ion depletion"
+      ]
+    },
+    {
+      "q": "Which best explains why gated channels having a \"closed but capable of opening\" state is functionally useful?",
+      "correct": "It allows the channel to remain ready (poised) to respond quickly once the appropriate stimulus occurs",
+      "wrong": [
+        "It permanently prevents the channel from ever opening",
+        "It means the channel is always conducting ions",
+        "It is identical in function to the inactivated state"
+      ]
+    },
+    {
+      "q": "Which best relates the number of Na⁺ channels opened to the resulting local current?",
+      "correct": "More open channels allow more Na⁺ entry, increasing the local current and the extent of depolarization spread",
+      "wrong": [
+        "The number of channels opened has no effect on local current",
+        "Fewer open channels always produce a larger local current",
+        "Local current is unrelated to channel number, only to channel location"
+      ]
+    },
+    {
+      "q": "Which of the following is an accurate comparison of astrocytes and ependymal cells?",
+      "correct": "Astrocytes regulate the environment around neurons and blood vessels, while ependymal cells regulate the CSF-filled spaces",
+      "wrong": [
+        "Both cell types perform identical functions in the CSF",
+        "Ependymal cells maintain the blood-brain barrier, while astrocytes produce CSF",
+        "Neither cell type has a barrier or fluid-related function"
+      ]
+    },
+    {
+      "q": "Which best explains the physiological purpose of chemically-, voltage-, and mechanically-gated channels together?",
+      "correct": "They allow neurons to respond appropriately to different types of stimuli — chemical signals, changes in membrane voltage, and physical forces",
+      "wrong": [
+        "They all serve the exact same single purpose with no distinction",
+        "Only voltage-gated channels are physiologically relevant",
+        "They exist only to maintain the resting potential, never to generate signals"
+      ]
+    },
+    {
+      "q": "Why might a stronger sensory stimulus (e.g. firmer touch) produce a larger graded potential?",
+      "correct": "Because it opens more mechanically-gated channels, producing a greater local current and larger change in membrane potential",
+      "wrong": [
+        "Because it always triggers hyperpolarization instead of depolarization",
+        "Because stimulus strength has no relation to channel opening",
+        "Because a stronger stimulus closes channels instead of opening them"
+      ]
+    },
+    {
+      "q": "What is the relationship between the sympathetic division and \"housekeeping\" functions?",
+      "correct": "The sympathetic division does NOT handle housekeeping — that is the role of the parasympathetic division",
+      "wrong": [
+        "The sympathetic division is solely responsible for housekeeping functions",
+        "Both divisions are equally responsible for housekeeping",
+        "Housekeeping functions belong to the somatic nervous system"
+      ]
+    },
+    {
+      "q": "Which best explains why sensory data and motor commands are described separately in the source?",
+      "correct": "Sensory data conveys information about the body’s internal/external conditions, while motor commands adjust the activity of peripheral effectors — they represent input and output respectively",
+      "wrong": [
+        "They are the same signal described with two different names",
+        "Sensory data always originates in muscles, while motor commands always originate in skin",
+        "Motor commands travel toward the CNS, while sensory data travels away from it"
+      ]
+    },
+    {
+      "q": "Which best captures why the resting potential is called a \"combination of passive and active forces\"?",
+      "correct": "Because it results from passive ion movement through leak channels together with active, ATP-dependent pumping by the Na⁺/K⁺ ATPase",
+      "wrong": [
+        "Because it results only from active transport, with no passive component",
+        "Because it results only from passive diffusion, with no active component",
+        "Because \"passive\" and \"active\" refer to two unrelated neurons"
+      ]
+    }
+  ],
+  "hard": [
+    {
+      "q": "If the Na⁺/K⁺ ATPase is completely blocked but leak channels remain functional, what will happen to the resting membrane potential over time?",
+      "correct": "It will gradually depolarize as Na⁺ accumulates inside and K⁺ is lost, since the pump normally reverses this leak",
+      "wrong": [
+        "It will remain unchanged indefinitely",
+        "It will immediately hyperpolarize to -90 mV",
+        "It will have no effect since leak channels do not move ions"
+      ]
+    },
+    {
+      "q": "Why does the electrogenic nature of the Na⁺/K⁺ pump (3 Na⁺ out : 2 K⁺ in) make the resting potential more negative than passive K⁺ diffusion alone would produce?",
+      "correct": "Each pump cycle removes one net positive charge from the cell, adding directly to the negativity beyond what diffusion alone creates",
+      "wrong": [
+        "The pump adds one net positive charge per cycle, making the cell less negative",
+        "The pump has no net charge effect since it exchanges equal charges",
+        "The pump only affects Cl⁻ distribution, not net charge"
+      ]
+    },
+    {
+      "q": "A cell’s membrane becomes very permeable to K⁺ but impermeable to Na⁺. Based on the electrochemical gradient concepts described, what would the resting potential approach?",
+      "correct": "A value close to the K⁺ equilibrium potential, since K⁺ movement would dominate the membrane potential",
+      "wrong": [
+        "A value close to 0 mV, since Na⁺ would dominate",
+        "A value of exactly +70 mV",
+        "No potential would develop at all"
+      ]
+    },
+    {
+      "q": "Why can peripheral nerve axons regenerate after Schwann cell-mediated repair, while the source does not describe an equivalent repair role for oligodendrocytes?",
+      "correct": "Because Schwann cells are explicitly described as participating in the repair process after PNS injury, a role not attributed to oligodendrocytes in the CNS",
+      "wrong": [
+        "Because oligodendrocytes actively destroy damaged axons",
+        "Because Schwann cells never myelinate axons, only repair them",
+        "Because CNS axons regenerate more easily than PNS axons"
+      ]
+    },
+    {
+      "q": "A stimulus opens a very large number of chemically-gated Na⁺ channels in a small area. Which best predicts the outcome, based on graded potential principles?",
+      "correct": "A large-amplitude depolarization with a wider local current spread than a weaker stimulus would produce",
+      "wrong": [
+        "A small, localized hyperpolarization regardless of channel number",
+        "No measurable change, since graded potentials are all-or-none",
+        "A depolarization of fixed amplitude regardless of how many channels open"
+      ]
+    },
+    {
+      "q": "Which sequence correctly integrates the source’s description of how the resting potential is initially set up and then maintained?",
+      "correct": "Unequal ICF/ECF ion distribution creates passive gradients → leak channels allow slow Na⁺/K⁺ movement down these gradients → the Na⁺/K⁺ ATPase actively restores the gradients using ATP",
+      "wrong": [
+        "The Na⁺/K⁺ ATPase creates the ion gradients from scratch with no pre-existing distribution",
+        "Leak channels alone maintain a stable potential with no need for active transport",
+        "Gated channels alone are responsible for the resting potential, with no leak channels involved"
+      ]
+    },
+    {
+      "q": "Why would a mutation that converts voltage-regulated Na⁺ channels into permanently \"closed and incapable of opening\" channels most severely affect excitable tissue?",
+      "correct": "Because this channel-opening step is described as the key event for generating an action potential, so the tissue would lose the ability to generate one",
+      "wrong": [
+        "Because it would have no effect, since resting potential does not depend on these channels",
+        "Because it would only affect mechanoreceptors, not excitable tissue generally",
+        "Because it would cause permanent depolarization instead of preventing excitation"
+      ]
+    },
+    {
+      "q": "Based on the source’s electrochemical gradient discussion, which ion at rest experiences two forces acting in the SAME direction, and which direction is that?",
+      "correct": "Na⁺, with both chemical and electrical gradients driving it into the cell",
+      "wrong": [
+        "K⁺, with both gradients driving it out of the cell",
+        "Na⁺, with both gradients driving it out of the cell",
+        "K⁺, with both gradients driving it into the cell"
+      ]
+    },
+    {
+      "q": "Why does the source describe K⁺’s outward movement at rest as being \"opposed\" rather than simply \"blocked\"?",
+      "correct": "Because K⁺ still moves down its chemical gradient, but this movement is partially counteracted by electrical attraction/repulsion, resulting in a net near-equilibrium rather than complete blockage",
+      "wrong": [
+        "Because K⁺ channels are entirely closed at rest, blocking all movement",
+        "Because K⁺ is actively pumped into the cell, reversing its direction completely",
+        "Because the chemical gradient for K⁺ does not exist at rest"
+      ]
+    },
+    {
+      "q": "A researcher records a graded potential that decays significantly by 2 mm from the stimulus site but barely decays by 0.1 mm. What does this best illustrate?",
+      "correct": "The characteristic that a graded potential’s effect decreases with distance because it spreads passively via local current, not by active regeneration",
+      "wrong": [
+        "That graded potentials are entirely non-decremental, contradicting the described characteristics",
+        "That local current has no role in spreading a graded potential",
+        "That the resting potential itself decays with distance under all conditions"
+      ]
+    },
+    {
+      "q": "Which best explains why chemically-, voltage-, and mechanically-gated channels are each suited to a distinct anatomical location or function described in the source?",
+      "correct": "Chemically-gated channels cluster at synapses (dendrite/soma) to detect neurotransmitters, voltage-gated channels dominate excitable membrane for action potential generation, and mechanically-gated channels serve sensory receptors detecting physical distortion",
+      "wrong": [
+        "All three channel types are distributed randomly with no functional or anatomical logic",
+        "Only voltage-gated channels have any real physiological role; the others are vestigial",
+        "Mechanically-gated channels generate action potentials, while voltage-gated channels detect touch"
+      ]
+    },
+    {
+      "q": "If astrocytes failed to maintain the blood-brain barrier after an injury, which combination of consequences would be most consistent with the source’s description of glial roles?",
+      "correct": "Impaired regulation of the neuronal environment, since astrocytes also normally regulate ion, nutrient, and gas concentrations and recycle neurotransmitters",
+      "wrong": [
+        "No consequence, since ependymal cells would fully compensate for barrier loss",
+        "Complete loss of CSF production, since astrocytes control CSF exclusively",
+        "Immediate remyelination of damaged CNS axons, since astrocytes and oligodendrocytes are interchangeable"
+      ]
+    },
+    {
+      "q": "A neuron shows a resting potential of -70 mV. A toxin selectively increases membrane permeability to Na⁺ without affecting K⁺ permeability or the Na⁺/K⁺ pump. What would you predict, based on the source’s framework?",
+      "correct": "The membrane would depolarize, since increased Na⁺ permeability would allow more inward movement along both its chemical and electrical gradients",
+      "wrong": [
+        "The membrane would hyperpolarize further toward -90 mV",
+        "The resting potential would be completely unaffected",
+        "The cell would immediately lose its ability to conduct impulses permanently"
+      ]
+    },
+    {
+      "q": "Which best explains why a stronger mechanical stimulus produces both a larger AND more widely spread graded potential, rather than just one or the other?",
+      "correct": "A stronger stimulus opens more mechanically-gated channels, which both increases local ion entry (amplitude) and drives more extensive local current spread (area)",
+      "wrong": [
+        "A stronger stimulus only increases amplitude, never spread, because graded potentials cannot spread by definition",
+        "A stronger stimulus only increases spread, never amplitude, since amplitude is fixed by channel type alone",
+        "Stimulus strength affects neither amplitude nor spread, only the ion involved"
+      ]
+    },
+    {
+      "q": "Which statement most accurately integrates the roles of the CNS and PNS divisions in a withdrawal response to touching something hot?",
+      "correct": "A mechanically/thermally activated receptor signals via the afferent PNS division to the CNS, which integrates the input and sends a motor command via the efferent (somatic) PNS division to skeletal muscle",
+      "wrong": [
+        "The autonomic nervous system alone controls the entire withdrawal response",
+        "The signal travels directly from receptor to muscle with no CNS involvement",
+        "The efferent division carries the sensory signal to the CNS in this scenario"
+      ]
+    },
+    {
+      "q": "Why is it functionally significant that the sympathetic and parasympathetic divisions are both part of the involuntary ANS, rather than the voluntary somatic system?",
+      "correct": "Because it means neither division is under conscious control, allowing automatic regulation of smooth muscle, cardiac muscle, and glands regardless of will",
+      "wrong": [
+        "Because it means both divisions can be consciously controlled at will",
+        "Because it means only the sympathetic division is involuntary, while parasympathetic is voluntary",
+        "Because it removes any distinction between the ANS and the somatic nervous system"
+      ]
+    },
+    {
+      "q": "A drug blocks all chemically-gated channels at synapses throughout the nervous system, without affecting voltage- or mechanically-gated channels. What would be the most direct consequence, per the source’s functional descriptions?",
+      "correct": "Impaired synaptic transmission, since chemically-gated channels (like ACh receptors) are concentrated at the dendrite/soma synapses",
+      "wrong": [
+        "Complete loss of the resting membrane potential throughout the body",
+        "Enhanced action potential conduction along axons",
+        "Immediate hyperpolarization of every neuron to -90 mV"
+      ]
+    },
+    {
+      "q": "Based on the potassium-diffusion equilibrium model described, what stops K⁺ from continuing to diffuse out of the cell indefinitely?",
+      "correct": "The developing membrane potential (from impermeable anions left behind) creates an increasing electrical attraction back toward the cell that eventually balances the outward chemical gradient",
+      "wrong": [
+        "K⁺ ions run out completely once equilibrium is reached",
+        "The membrane becomes completely impermeable to K⁺ once diffusion begins",
+        "ATP is required to stop K⁺ diffusion, and equilibrium reflects total ATP depletion"
+      ]
+    },
+    {
+      "q": "Which best explains why the source treats \"graded potentials\" and \"action potentials\" as the two subtypes of change in transmembrane potential, rather than as unrelated phenomena?",
+      "correct": "Both represent shifts in Vm caused by ion channel activity, but graded potentials are local/decremental while an action potential (triggered via voltage-gated Na⁺ channels) is the other major category of potential change described",
+      "wrong": [
+        "They are entirely unrelated concepts that happen to share the word \"potential\"",
+        "Action potentials are simply a weaker version of graded potentials",
+        "Graded potentials only occur in glial cells, while action potentials only occur in neurons"
+      ]
+    },
+    {
+      "q": "If a cell’s membrane lost essentially all of its selective permeability (becoming freely permeable to all ions), what would the source’s model predict about its transmembrane potential?",
+      "correct": "The potential difference would collapse toward zero, since the membrane’s \"resistance\" to free ion movement is what allows a potential difference to exist",
+      "wrong": [
+        "The potential would become more negative than -70 mV",
+        "The potential would rise sharply to +200 mV",
+        "There would be no change, since ion channels are irrelevant to resting potential"
+      ]
+    },
+    {
+      "q": "A comparison of oligodendrocytes and astrocytes shows that, per the source, only one of them is directly credited with axon myelination. Which is it, and what is astrocytes’ corresponding structural contribution instead?",
+      "correct": "Oligodendrocytes myelinate CNS axons; astrocytes instead provide general structural support and maintain the blood-brain barrier",
+      "wrong": [
+        "Astrocytes myelinate CNS axons; oligodendrocytes maintain the blood-brain barrier",
+        "Both cells myelinate CNS axons equally",
+        "Neither cell contributes to CNS structure; only ependymal cells do"
+      ]
+    },
+    {
+      "q": "Why might blocking only the Na⁺-conducting leak channels (while leaving K⁺ leak channels and the pump intact) tend to hyperpolarize a resting neuron slightly?",
+      "correct": "Without the slow inward Na⁺ leak partially offsetting it, unopposed K⁺ efflux and pump activity would shift Vm even closer to the K⁺ equilibrium potential",
+      "wrong": [
+        "Blocking Na⁺ leak channels would have no effect on Vm, since Na⁺ never contributes to resting potential",
+        "It would cause immediate depolarization to 0 mV",
+        "It would stop the Na⁺/K⁺ pump from functioning entirely"
+      ]
+    },
+    {
+      "q": "Which best explains, using the source’s \"excitable tissue\" concept, why skeletal muscle and neurons — but not most other cell types — are described as capable of generating action potentials?",
+      "correct": "Because they possess voltage-regulated channels that open/close in response to transmembrane potential changes, defining them as excitable membranes",
+      "wrong": [
+        "Because they lack the Na⁺/K⁺ pump found in other cells",
+        "Because their resting potential is always 0 mV, unlike other cells",
+        "Because they contain only mechanically-gated channels"
+      ]
+    },
+    {
+      "q": "A local anesthetic selectively keeps voltage-regulated Na⁺ channels in the \"closed & incapable of opening\" state in a region of axon. Based on the source, what is the most direct functional consequence?",
+      "correct": "That region cannot generate the depolarization step that is the key trigger for an action potential, so excitation cannot pass through it",
+      "wrong": [
+        "The resting potential in that region becomes permanently 0 mV",
+        "Graded potentials in that region become unusually large",
+        "Mechanically-gated channels compensate fully, so no functional change occurs"
+      ]
+    },
+    {
+      "q": "Which best integrates the roles of satellite cells, Schwann cells, and the ATP-dependent Na⁺/K⁺ pump in supporting a single PNS sensory neuron and its signaling?",
+      "correct": "Satellite cells regulate the chemical microenvironment around the cell body, Schwann cells myelinate and support the axon, and the Na⁺/K⁺ pump (using ATP) actively maintains the ionic gradients that make the neuron’s membrane potential possible",
+      "wrong": [
+        "All three perform the identical function of myelination",
+        "Satellite cells generate the action potential, while the pump only affects glial cells",
+        "None of these three interacts with the sensory neuron’s signaling capacity"
+      ]
+    },
+    {
+      "q": "Why does the source’s description of Na⁺ having both an inward chemical AND inward electrical gradient at rest matter for understanding depolarization?",
+      "correct": "It explains why, once Na⁺ channels open (e.g. during a graded or action potential), Na⁺ rushes in rapidly and forcefully, since nothing opposes its entry",
+      "wrong": [
+        "It explains why Na⁺ never actually enters the cell under any circumstance",
+        "It means Na⁺ channels never need to open, since Na⁺ enters via diffusion through the lipid bilayer directly",
+        "It implies K⁺ and Na⁺ gradients are always identical in direction and magnitude"
+      ]
+    },
+    {
+      "q": "Which best explains why microglial phagocytosis and astrocytic scar formation are both relevant after a CNS injury, but serve different purposes?",
+      "correct": "Microglia clear debris and pathogens (immune/clean-up role), while astrocytes form scar tissue that provides structural containment of the injury site",
+      "wrong": [
+        "Both cells perform the exact same clean-up role with full redundancy",
+        "Microglia form scar tissue while astrocytes perform phagocytosis",
+        "Neither cell type responds to CNS injury"
+      ]
+    },
+    {
+      "q": "Given that ependymal cells line the ventricles/central canal and help produce/monitor CSF, while astrocytes help form the blood-brain barrier, which best describes their combined contribution to CNS homeostasis?",
+      "correct": "Together they help regulate and protect the fluid and chemical environments (CSF and blood-brain interface) surrounding CNS neurons",
+      "wrong": [
+        "They perform redundant, identical roles solely within blood vessels",
+        "Only ependymal cells contribute to CNS homeostasis; astrocytes have no relevant role",
+        "They regulate skeletal muscle contraction indirectly"
+      ]
+    },
+    {
+      "q": "Suppose a stimulus opens a moderate number of K⁺ channels while simultaneously a separate, stronger stimulus opens a very large number of Na⁺ channels at the same patch of membrane. What would the source’s model predict?",
+      "correct": "Depolarization would likely dominate, since more Na⁺ channels are open and driving current in the depolarizing direction, though the K⁺ efflux would partially offset it",
+      "wrong": [
+        "The two effects always cancel exactly regardless of channel numbers",
+        "Only the K⁺ channels would have any effect on membrane potential",
+        "The membrane potential would remain fixed regardless of channel activity"
+      ]
+    },
+    {
+      "q": "Why would an experiment blocking ATP production entirely be expected to eventually abolish the resting membrane potential, based on the source’s framework?",
+      "correct": "Without ATP, the Na⁺/K⁺ ATPase could no longer counteract the passive leak channels, so ionic gradients would gradually dissipate and Vm would drift toward 0 mV",
+      "wrong": [
+        "ATP has no role in maintaining ionic gradients according to the source",
+        "The resting potential is generated solely by leak channels and is entirely independent of the pump",
+        "Blocking ATP would cause Vm to become more negative than -70 mV indefinitely"
+      ]
+    },
+    {
+      "q": "Which best explains why the source distinguishes \"closed but capable of opening\" from \"closed and incapable of opening\" as two separate gated-channel states, rather than treating all closed channels identically?",
+      "correct": "The distinction reflects whether the channel is in a resting/ready state that can respond to a new stimulus, versus a temporarily inactivated state that cannot — a functionally important difference for signaling",
+      "wrong": [
+        "The distinction is purely arbitrary and has no functional meaning",
+        "Both states are functionally identical to the open/activated state",
+        "Only the \"incapable of opening\" state exists in real neurons"
+      ]
+    },
+    {
+      "q": "A neuron is exposed to a chemical that opens both chemically-gated Na⁺ channels AND (separately) blocks the Na⁺/K⁺ pump. Which best predicts the combined short- and long-term effect on Vm?",
+      "correct": "Short-term: rapid depolarization from Na⁺ influx through the opened channels; long-term: Vm would fail to return fully to -70 mV because the pump can no longer restore the gradients",
+      "wrong": [
+        "Short-term: immediate hyperpolarization; long-term: no lasting effect since leak channels alone maintain resting potential",
+        "No effect at either timepoint, since the pump and gated channels act independently with no interaction",
+        "Long-term Vm would become more negative than -70 mV due to pump blockade"
+      ]
+    },
+    {
+      "q": "Why does the source’s description imply that graded potentials, unlike a hypothetical all-or-none signal, are useful for encoding stimulus intensity?",
+      "correct": "Because their amplitude and spread scale directly with the number of channels opened, which in turn scales with stimulus strength",
+      "wrong": [
+        "Because graded potentials always have the exact same amplitude regardless of stimulus",
+        "Because graded potentials only occur in response to voltage changes, not stimulus intensity",
+        "Because stimulus intensity has no described relationship to channel number"
+      ]
+    },
+    {
+      "q": "Which best explains why voltage-regulated channels, rather than leak or chemically-gated channels, are specifically credited with the key step of action potential generation?",
+      "correct": "Because they open in direct response to membrane potential change itself, allowing a self-reinforcing (regenerative) depolarization once threshold is reached, unlike passively-leaking or externally-triggered channels",
+      "wrong": [
+        "Because leak channels are more numerous and therefore more important",
+        "Because chemically-gated channels are only found in glial cells",
+        "Because voltage-regulated channels require ATP to open, unlike other channel types"
+      ]
+    },
+    {
+      "q": "A cell’s ICF suddenly loses most of its negatively charged intracellular proteins (Pr⁻) without any other change. Based on the ionic composition principles described, what would you predict?",
+      "correct": "The electrical gradient normally retaining K⁺ inside the cell would weaken, likely allowing more net K⁺ efflux and altering the resting potential",
+      "wrong": [
+        "There would be no effect, since intracellular proteins play no role in the membrane potential",
+        "The cell would immediately depolarize to +40 mV",
+        "Na⁺ concentration in the ECF would change as a direct, immediate result"
+      ]
+    },
+    {
+      "q": "Which best explains the physiological logic of pairing mechanically-gated channels with touch/pressure/vibration receptors specifically, rather than with synaptic transmission?",
+      "correct": "These channels transduce physical/mechanical stimuli into an electrical signal, matching the nature of touch, pressure, and vibration, whereas synaptic transmission relies on chemical neurotransmitter signaling",
+      "wrong": [
+        "Mechanically-gated channels cannot generate any electrical signal at all",
+        "Synaptic transmission exclusively uses mechanically-gated channels in the source’s description",
+        "Touch, pressure, and vibration are chemical stimuli, matching chemically-gated channels instead"
+      ]
+    },
+    {
+      "q": "How would you best justify, from the source, that the resting potential is not simply \"the equilibrium potential of one ion\" but a dynamic steady state?",
+      "correct": "Because it depends on continuous leak channel activity (Na⁺ in, K⁺ out) counterbalanced by continuous ATP-dependent pumping, rather than a single static equilibrium",
+      "wrong": [
+        "Because the resting potential is fixed permanently at the moment of cell formation with no ongoing activity",
+        "Because only Cl⁻ movement determines the resting potential, with no other ion involved",
+        "Because equilibrium potentials do not exist in real neurons"
+      ]
+    },
+    {
+      "q": "Which best explains why increasing extracellular K⁺ concentration would be expected to depolarize a resting neuron, according to the electrochemical framework described?",
+      "correct": "It would reduce the outward chemical gradient for K⁺, decreasing net K⁺ efflux and shifting Vm away from the (more negative) K⁺-dominated resting level",
+      "wrong": [
+        "It would have no effect, since ECF K⁺ concentration is irrelevant to Vm",
+        "It would hyperpolarize the neuron further by increasing K⁺ efflux",
+        "It would only affect Na⁺ channels, not the resting potential"
+      ]
+    },
+    {
+      "q": "Based on the overall model in the source, which single mechanism, if it failed completely, would most directly and rapidly compromise ALL of the following: resting potential maintenance, the driving force for Na⁺-dependent depolarization, and the cell’s ability to repeatedly generate graded/action potentials?",
+      "correct": "Failure of the Na⁺/K⁺ ATPase, since it actively maintains the ionic gradients that both establish the resting potential and provide the driving force for subsequent Na⁺ entry during depolarizing events",
+      "wrong": [
+        "Failure of mechanically-gated channels alone, since they are unrelated to resting potential or Na⁺ gradients",
+        "Failure of ependymal cells, since CSF production is unrelated to membrane ionic gradients",
+        "Failure of astrocytic scar formation, since it is unrelated to ionic gradients or channel function"
+      ]
+    },
+    {
+      "q": "Synthesizing the source’s account of graded potentials, which statement best captures the complete causal chain from stimulus to spreading local effect?",
+      "correct": "A stimulus opens a number of gated channels proportional to its strength → the resulting ion flow shifts the local transmembrane potential (depolarizing or hyperpolarizing, depending on the ion) → this local change spreads passively to adjacent membrane via local current → the effect progressively decays with distance from the stimulus site",
+      "wrong": [
+        "A stimulus directly and permanently sets Vm to 0 mV everywhere in the cell simultaneously, with no decay",
+        "Graded potentials are generated without any ion channel involvement, purely through ATP hydrolysis",
+        "The local current amplifies indefinitely with distance rather than decaying"
+      ]
+    }
+  ]
+};
+let quizLevel = 'easy';
+let quizData = quizDataByLevel[quizLevel];
+
+let quizOrder = [];
+let quizIdx = 0;
+let quizScore = 0;
+let quizAnswered = [];
+let quizOptionSets = [];
+
+function initQuiz(){
+  quizOrder = shuffleArr(quizData.map((_,i)=>i));
+  quizOptionSets = quizOrder.map(i=>{
+    const item = quizData[i];
+    return shuffleArr([item.correct, ...item.wrong]);
+  });
+  quizIdx = 0;
+  quizScore = 0;
+  quizAnswered = new Array(quizData.length).fill(false);
+  document.getElementById('quizScore').textContent = quizScore;
+  document.getElementById('quizTotal').textContent = quizData.length;
+  renderQuiz();
+}
+
+function setQuizLevel(level){
+  quizLevel = level;
+  quizData = quizDataByLevel[level];
+  document.querySelectorAll('#quizLevelTabs .gate-tab').forEach(b=>b.classList.toggle('active', b.dataset.level===level));
+  initQuiz();
+}
+
+function renderQuiz(){
+  const area = document.getElementById('quizArea');
+  document.getElementById('quizTrackFill').style.width = ((quizIdx)/quizData.length*100)+'%';
+
+  if(quizIdx >= quizData.length){
+    area.innerHTML =
+      '<div class="quiz-done"><h3>Done — '+quizScore+' / '+quizData.length+'</h3>'+
+      '<p>Reshuffle to try again with fresh answer positions.</p>'+
+      '<button class="gate-btn" id="quizDoneRestart">Reshuffle &amp; restart</button></div>';
+    document.getElementById('quizDoneRestart').addEventListener('click', initQuiz);
+    document.getElementById('quizTrackFill').style.width='100%';
+    return;
+  }
+
+  const dataIdx = quizOrder[quizIdx];
+  const item = quizData[dataIdx];
+  const options = quizOptionSets[quizIdx];
+  const already = quizAnswered[quizIdx];
+
+  let optsHtml = options.map((opt,i)=>{
+    const letter = String.fromCharCode(65+i);
+    return '<button class="q-opt" data-opt="'+i+'"><span class="k">'+letter+'</span><span>'+opt+'</span></button>';
+  }).join('');
+
+  area.innerHTML =
+    '<div class="q-card">'+
+      '<div class="q-num">Question '+(quizIdx+1)+' of '+quizData.length+'</div>'+
+      '<div class="q-text">'+item.q+'</div>'+
+      '<div class="q-options">'+optsHtml+'</div>'+
+      '<div class="q-feedback" id="qFeedback"></div>'+
+      '<div class="q-nav">'+
+        '<button class="q-btn" id="qPrev" '+(quizIdx===0?'disabled':'')+'>← Previous</button>'+
+        '<button class="q-btn" id="qNext">Next →</button>'+
+      '</div>'+
+    '</div>';
+
+  document.getElementById('qPrev').addEventListener('click', ()=>{ quizIdx--; renderQuiz(); });
+  document.getElementById('qNext').addEventListener('click', ()=>{ quizIdx++; renderQuiz(); });
+
+  const optBtns = area.querySelectorAll('.q-opt');
+  if(already){
+    lockOptions(optBtns, options, item.correct, null);
+  }
+  optBtns.forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      if(quizAnswered[quizIdx]) return;
+      quizAnswered[quizIdx] = true;
+      const chosen = options[parseInt(btn.dataset.opt)];
+      if(chosen === item.correct){
+        quizScore++;
+        document.getElementById('quizScore').textContent = quizScore;
+        document.getElementById('qFeedback').textContent = 'Correct.';
+      } else {
+        document.getElementById('qFeedback').textContent = 'Not quite — correct answer highlighted.';
+      }
+      lockOptions(optBtns, options, item.correct, chosen);
+    });
+  });
+}
+
+function lockOptions(optBtns, options, correct, chosen){
+  optBtns.forEach((b,i)=>{
+    b.setAttribute('disabled','true');
+    if(options[i] === correct) b.classList.add('correct');
+    else if(options[i] === chosen) b.classList.add('incorrect');
+  });
+}
+
+document.querySelectorAll('#quizLevelTabs .gate-tab').forEach(btn=>{
+  btn.addEventListener('click', ()=>setQuizLevel(btn.dataset.level));
+});
+document.getElementById('quizRestart').addEventListener('click', initQuiz);
+initQuiz();
+</script>
+</body>
+</html>
